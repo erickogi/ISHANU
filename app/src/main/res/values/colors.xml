@@ -33,4 +33,11 @@
     <color name="transparent">#00000000</color>
     <color name="main_background">#eeeeee</color>
     <color name="google_assistant_background">#F5F5F5</color>
+
+
+    <color name="dark_blue">#180065</color>
+    <color name="light_blue">#334ee9ff</color>
+    <color name="medium_green">#3d853e</color>
+    <color name="light_green">#3c2ae668</color>
+
 </resources>

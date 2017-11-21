@@ -2,4 +2,57 @@
     <string name="app_name">ISHANU</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_base">BaseActivity</string>
+
+
+    <string name="call_desc">Call representatives are available between 7 am and 7 pm weekdays and 8 am - 1 pm on weekends/Public holidays</string>
+    <string name="title_activity_base_blue">New Activity</string>
+    <string name="version_text">Version 1.0</string>
+    <string name="odijo_email">eric@erickogi.co.ke</string>
+    <string name="drop_us_an_email_at">Drop us an email at :</string>
+    <string name="phone_n2">0714406984</string>
+    <string name="phone_1">0714406984</string>
+    <string name="call_us_on">Call us on</string>
+
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Etiam eget ligula eu lectus lobortis condimentum.</string>
+    <string name="password">Password</string>
+    <string name="tag_line">Always doing the right thing at the right time</string>
+
+    <string-array name="listarray_customers">
+        <item>Select Customer</item>
+        <item>Peter Mark Shop</item>
+        <item>Ngengi Joseph</item>
+        <item>Muasia Peter Shop</item>
+
+        <item>Zack Odoyo Shop</item>
+
+
+    </string-array>
+    <string-array name="serials">
+        <item>Select Serial</item>
+        <item>SM 123573</item>
+        <item>SM 673590</item>
+
+        <item>SM 534678</item>
+        <item>SM 5632830</item>
+
+        <item>SM 428734</item>
+        <item>SM 169235</item>
+
+
+    </string-array>
+
+
+    <string-array name="routes">
+        <item>Select Route</item>
+        <item>Bamburi</item>
+        <item>Kiwandani</item>
+
+        <item>Waiyaki way</item>
+        <item>Kasarani</item>
+
+        <item>Ugunja</item>
+        <item>Mwembe Tayari</item>
+
+
+    </string-array>
 </resources>
