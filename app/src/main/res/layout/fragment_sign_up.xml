@@ -62,6 +62,7 @@
 
 
                 <Spinner
+                    android:id="@+id/spinner_route"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
@@ -74,6 +75,25 @@
                     android:tooltipText="Route">
 
                 </Spinner>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginStart="4dp"
+                    android:padding="8dp"
+                    android:textColorHint="@color/white"
+                    app:passwordToggleEnabled="true">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/txt_car"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:hint="Car"
+                        android:inputType="textCapCharacters"
+                        android:textColor="@color/white" />
+                </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"

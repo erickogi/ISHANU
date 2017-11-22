@@ -10,8 +10,8 @@ public class ProductModel implements Serializable {
 
     private String product_id;
     private String product_name;
-    private int product_load_quantity;
-    private int product_sale_quantity;
+    private double product_load_quantity;
+    private double product_sale_quantity;
     private double product_price;
 
     public String getProduct_id() {
@@ -30,19 +30,19 @@ public class ProductModel implements Serializable {
         this.product_name = product_name;
     }
 
-    public int getProduct_load_quantity() {
+    public double getProduct_load_quantity() {
         return product_load_quantity;
     }
 
-    public void setProduct_load_quantity(int product_load_quantity) {
+    public void setProduct_load_quantity(double product_load_quantity) {
         this.product_load_quantity = product_load_quantity;
     }
 
-    public int getProduct_sale_quantity() {
+    public double getProduct_sale_quantity() {
         return product_sale_quantity;
     }
 
-    public void setProduct_sale_quantity(int product_sale_quantity) {
+    public void setProduct_sale_quantity(double product_sale_quantity) {
         this.product_sale_quantity = product_sale_quantity;
     }
 

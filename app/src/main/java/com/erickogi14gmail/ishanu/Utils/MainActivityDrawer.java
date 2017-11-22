@@ -92,7 +92,7 @@ public class MainActivityDrawer {
                                 .withTextColor(activity.getResources().getColor(R.color.primary_dark))
                                 .withSelectedTextColorRes(R.color.colorPrimaryDark)
                                 //.withSelectedTextColorRes(R.color.colorPrimaryDark)
-                                .withIcon(R.drawable.p)
+                                .withIcon(R.drawable.ishano_logo)
 
 
                                 .withDisabledTextColor(activity.getResources().getColor(R.color.colorPrimaryDark))

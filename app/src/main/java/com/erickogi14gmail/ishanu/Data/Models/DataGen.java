@@ -17,10 +17,10 @@ import java.util.LinkedList;
 public class DataGen {
     private static LinkedList<ProductModel> productModels;
 
-    public static LinkedList<ProductModel> genData(Activity activity) {
+    public static LinkedList<ProductModel> genData(Activity activity, String fileName) {
         productModels = new LinkedList<>();
 
-        productModels = jsonToProduct(activity);
+        productModels = jsonToProduct(activity, fileName);
 
 
         return productModels;
@@ -28,10 +28,10 @@ public class DataGen {
     }
 
 
-    private static String loadJSONFromAsset(Activity activity) {
+    private static String loadJSONFromAsset(Activity activity, String fileName) {
         String json = null;
         try {
-            InputStream is = activity.getAssets().open("convertcsv.json");
+            InputStream is = activity.getAssets().open(fileName);
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
@@ -44,12 +44,12 @@ public class DataGen {
         return json;
     }
 
-    private static LinkedList<ProductModel> jsonToProduct(Activity activity) {
+    private static LinkedList<ProductModel> jsonToProduct(Activity activity, String fileName) {
         LinkedList<ProductModel> productModels = new LinkedList<>();
 
         try {
             // JSONObject obj = new JSONObject(loadJSONFromAsset());
-            JSONArray m_jArry = new JSONArray(loadJSONFromAsset(activity));
+            JSONArray m_jArry = new JSONArray(loadJSONFromAsset(activity, fileName));
 
 
             for (int i = 0; i < m_jArry.length(); i++) {
@@ -57,8 +57,8 @@ public class DataGen {
                 ProductModel productModel = new ProductModel();
                 productModel.setProduct_name(obj.getString("FIELD6"));
                 productModel.setProduct_id(obj.getString("FIELD7"));
-                productModel.setProduct_load_quantity(obj.getInt("FIELD9"));
-                productModel.setProduct_sale_quantity(0);
+                productModel.setProduct_load_quantity(obj.getDouble("FIELD9"));
+                productModel.setProduct_sale_quantity(0.0);
                 productModel.setProduct_price(obj.getDouble("FIELD10"));
 
 

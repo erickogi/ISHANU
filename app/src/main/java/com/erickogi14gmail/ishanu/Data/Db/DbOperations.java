@@ -25,7 +25,7 @@ public class DbOperations {
     }
 
 
-    public LinkedList<ProductModel> getAllItems(String search) {
+    public LinkedList<ProductModel> getAllItems(String search, int type) {
         //Open connection to read only
         SQLiteDatabase db = dbHandler.getReadableDatabase();
 
@@ -33,7 +33,9 @@ public class DbOperations {
         LinkedList<ProductModel> data = new LinkedList<>();
         String QUERY = null;
 
-        QUERY = "SELECT * FROM  ishano_loading_data WHERE  product_name LIKE '%" + search + "%'";
+
+        QUERY = "SELECT * FROM  ishano_loading_data WHERE  product_name LIKE '%" + search + "%' AND product_type= '" + type + "'";
+
 
 
         Cursor cursor = db.rawQuery(QUERY, null);
@@ -44,8 +46,8 @@ public class DbOperations {
                 ProductModel pojo = new ProductModel();
                 pojo.setProduct_id(cursor.getString(0));
                 pojo.setProduct_name(cursor.getString(1));
-                pojo.setProduct_load_quantity(cursor.getInt(2));
-                pojo.setProduct_sale_quantity(cursor.getInt(3));
+                pojo.setProduct_load_quantity(cursor.getDouble(2));
+                pojo.setProduct_sale_quantity(cursor.getDouble(3));
                 pojo.setProduct_price(cursor.getDouble(4));
 
 
@@ -67,7 +69,7 @@ public class DbOperations {
 
     }
 
-    public boolean insertItem(ProductModel data) {
+    public boolean insertItem(ProductModel data, int type) {
         boolean success = false;
 
         SQLiteDatabase db = dbHandler.getWritableDatabase();
@@ -81,6 +83,7 @@ public class DbOperations {
         values.put("product_load_quantity", String.valueOf(data.getProduct_load_quantity()));
         values.put("product_sale_quantity", String.valueOf(data.getProduct_sale_quantity()));
         values.put("product_price", String.valueOf(data.getProduct_price()));
+        values.put("product_type", String.valueOf(type));
 
 
         if (db.insert("ishano_loading_data", null, values) >= 1) {

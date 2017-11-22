@@ -18,9 +18,16 @@
             android:id="@+id/img_logol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+
             android:padding="16dp"
-            android:src="@drawable/delivery" />
+            android:src="@drawable/delivery_big" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ISHAN0 DISTRIBUTERS"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
 
     </LinearLayout>

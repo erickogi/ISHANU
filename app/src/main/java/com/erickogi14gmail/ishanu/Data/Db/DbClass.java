@@ -17,7 +17,8 @@ public class DbClass extends SQLiteOpenHelper {
             "  `product_name` varchar NOT NULL," +
             "  `product_load_quantity` varchar NOT NULL," +
             "  `product_sale_quantity` varchar NOT NULL," +
-            "  `product_price` varchar "
+            "  `product_price` varchar , " +
+            "  `product_type` varchar "
 
 
             + ")";

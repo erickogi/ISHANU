@@ -36,6 +36,7 @@ public class DialogSearch extends android.support.v4.app.DialogFragment {
     private RecyclerView recyclerView;
     private StaggeredGridLayoutManager mStaggeredLayoutManager;
     private SearchProductAdapter searchProductAdapter;
+    private int type = 1;
 
     public DialogSearch() {
         // Empty constructor is required for DialogFragment
@@ -43,11 +44,12 @@ public class DialogSearch extends android.support.v4.app.DialogFragment {
         // Use `newInstance` instead as shown below
     }
 
-    public static DialogSearch newInstance(String title) {
+    public static DialogSearch newInstance(String title, int type) {
         DialogSearch frag = new DialogSearch();
         Bundle args = new Bundle();
         // args.putSerializable("data", productModels);
         args.putString("title", title);
+        args.putInt("type", type);
         frag.setArguments(args);
         return frag;
     }
@@ -80,15 +82,17 @@ public class DialogSearch extends android.support.v4.app.DialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         dbOperations = new DbOperations(getActivity());
+        type = getArguments().getInt("type");
+
         // Get field from view
         recyclerView = view.findViewById(R.id.recycler_view);
-        LinkedList<ProductModel> productModels = dbOperations.getAllItems("");
+        LinkedList<ProductModel> productModels = dbOperations.getAllItems("", type);
         for (ProductModel productModel : productModels) {
             Log.d("dla", "" + productModel.getProduct_name());
         }
 
 
-        searchProductAdapter = new SearchProductAdapter(productModels, getActivity());
+        searchProductAdapter = new SearchProductAdapter(productModels, getActivity(), type);
 
         searchProductAdapter.notifyDataSetChanged();
         mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
@@ -138,7 +142,7 @@ public class DialogSearch extends android.support.v4.app.DialogFragment {
                     try {
 
 
-                        searchProductAdapter.updateList(dbOperations.getAllItems(newText));
+                        searchProductAdapter.updateList(dbOperations.getAllItems(newText, type));
 
 
                     } catch (Exception m) {

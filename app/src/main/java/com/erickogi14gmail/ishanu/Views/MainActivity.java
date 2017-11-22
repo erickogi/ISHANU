@@ -1,5 +1,6 @@
 package com.erickogi14gmail.ishanu.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,14 +9,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.erickogi14gmail.ishanu.Data.Db.DbOperations;
 import com.erickogi14gmail.ishanu.Data.Db.PrefrenceManager;
 import com.erickogi14gmail.ishanu.Data.Models.DataGen;
+import com.erickogi14gmail.ishanu.Data.Models.MyAccountModel;
 import com.erickogi14gmail.ishanu.Data.Models.ProductModel;
 import com.erickogi14gmail.ishanu.Interfaces.DrawerItemListener;
 import com.erickogi14gmail.ishanu.R;
 import com.erickogi14gmail.ishanu.Utils.MainActivityDrawer;
+import com.erickogi14gmail.ishanu.Views.Login.LoginActivity;
 import com.erickogi14gmail.ishanu.Views.SalesForms.MyStepperAdapter;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
@@ -38,18 +42,27 @@ public class MainActivity extends AppCompatActivity implements StepperLayout.Ste
 
         prefrenceManager = new PrefrenceManager(MainActivity.this);
         if (prefrenceManager.isFirstTime()) {
-            for (ProductModel productModel : DataGen.genData(this)) {
-                dbOperations.insertItem(productModel);
+            for (ProductModel productModel : DataGen.genData(this, "convertcsv.json")) {
+                dbOperations.insertItem(productModel, 1);
             }
+            for (ProductModel productModel : DataGen.genData(this, "returnscsv.json")) {
+                dbOperations.insertItem(productModel, 2);
+            }
+
             prefrenceManager.setIsFirstTime(false);
 
         }
+        MyAccountModel myAccountModel = prefrenceManager.getAccount();
+
 
 
         mStepperLayout = findViewById(R.id.stepperLayout);
         mStepperAdapter = new MyStepperAdapter(getSupportFragmentManager(), this);
         mStepperLayout.setAdapter(mStepperAdapter);
         mStepperLayout.setListener(this);
+        mStepperLayout.setOffscreenPageLimit(1);
+
+
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -58,22 +71,25 @@ public class MainActivity extends AppCompatActivity implements StepperLayout.Ste
         fab.hide();
 
         HashMap<String,String> details=new HashMap<>();
-        details.put("name","Eric Kogi");
-        details.put("email","erickogi14@gmail.com");
+        details.put("name", myAccountModel.getName());
+        details.put("email", myAccountModel.getEmail());
 
         MainActivityDrawer.getDrawer(MainActivity.this, toolbar, 1, details, "null", new DrawerItemListener() {
             @Override
             public void sellClicked() {
+
 
             }
 
             @Override
             public void reportsClicked() {
 
+
             }
 
             @Override
             public void notificationsClicked() {
+
 
             }
 
@@ -90,6 +106,9 @@ public class MainActivity extends AppCompatActivity implements StepperLayout.Ste
             @Override
             public void logoutClicked() {
 
+                prefrenceManager.setIsLoggedIn(false);
+                finish();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
 
             @Override
@@ -129,6 +148,10 @@ public class MainActivity extends AppCompatActivity implements StepperLayout.Ste
     @Override
     public void onCompleted(View completeButton) {
 
+
+        // StepperLayout.setCurrentStepPosition(int)
+        Toast.makeText(this, "Thank you for testing ISHANU APP ", Toast.LENGTH_SHORT).show();
+        mStepperLayout.setCurrentStepPosition(0);
     }
 
     @Override

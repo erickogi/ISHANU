@@ -28,14 +28,30 @@ public class MyStepperAdapter extends AbstractFragmentStepAdapter {
                 final FragmentOne step1 = new FragmentOne();
                 Bundle b1 = new Bundle();
                 b1.putInt(CURRENT_STEP_POSITION_KEY, position);
+
                 step1.setArguments(b1);
                 return step1;
             case 1:
                 final FragmentTwo step2 = new FragmentTwo();
                 Bundle b2 = new Bundle();
                 b2.putInt(CURRENT_STEP_POSITION_KEY, position);
+                b2.putInt("type", 1);
                 step2.setArguments(b2);
                 return step2;
+            case 2:
+                final FragmentTwoR step3 = new FragmentTwoR();
+                Bundle b3 = new Bundle();
+                b3.putInt(CURRENT_STEP_POSITION_KEY, position);
+                b3.putInt("type", 2);
+                step3.setArguments(b3);
+                return step3;
+            case 3:
+                final FragmentThree step4 = new FragmentThree();
+                Bundle b4 = new Bundle();
+                b4.putInt(CURRENT_STEP_POSITION_KEY, position);
+                //b4.putInt("type",2);
+                step4.setArguments(b4);
+                return step4;
 
 
         }
@@ -44,7 +60,7 @@ public class MyStepperAdapter extends AbstractFragmentStepAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 4;
     }
 
     @NonNull
@@ -67,12 +83,9 @@ public class MyStepperAdapter extends AbstractFragmentStepAdapter {
                         .create();
             case 3:
                 return new StepViewModel.Builder(context)
-                        .setTitle("Payment") //can be a CharSequence instead
-                        .create();
-            case 4:
-                return new StepViewModel.Builder(context)
                         .setTitle("Finish") //can be a CharSequence instead
                         .create();
+
         }
         return null;
     }

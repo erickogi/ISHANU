@@ -1,7 +1,6 @@
 package com.erickogi14gmail.ishanu.Views.Login;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.erickogi14gmail.ishanu.R;
-import com.erickogi14gmail.ishanu.Views.MainActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -53,9 +51,9 @@ public class LoginActivity extends AppCompatActivity {
     public void newloginBtnPressed(View view) {
         popOutFragments();
         fragment = new FragmentLogin();
-        // setUpView();
-        finish();
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        setUpView();
+        //finish();
+        //startActivity(new Intent(LoginActivity.this, MainActivity.class));
     }
 
     void setUpView() {

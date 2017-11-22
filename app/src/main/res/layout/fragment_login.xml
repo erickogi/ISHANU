@@ -27,13 +27,13 @@
                 >
                 <!--app:hintTextAppearance="@style/EditTextHintStyle"-->
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/edt_user_id"
+                    android:id="@+id/edt_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
                     android:layout_marginTop="4dp"
-                    android:hint="User Id"
-                    android:inputType="phone"
+                    android:hint="User Id/Email/Mobile"
+                    android:inputType="textEmailAddress"
                     android:textColor="@color/white" />
             </android.support.design.widget.TextInputLayout>
 

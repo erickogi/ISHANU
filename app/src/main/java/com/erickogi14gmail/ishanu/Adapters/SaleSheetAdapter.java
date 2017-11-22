@@ -53,6 +53,12 @@ public class SaleSheetAdapter extends RecyclerView.Adapter<SaleSheetAdapter.MyVi
         notifyDataSetChanged();
     }
 
+    public void updateItemItem(int position, ProductModel productModel) {
+        modelList.get(position).setProduct_sale_quantity(productModel.getProduct_sale_quantity());
+        modelList.get(position).setProduct_price(productModel.getProduct_price());
+        notifyItemChanged(position);
+    }
+
     @Override
     public int getItemCount() {
         return (null != modelList ? modelList.size() : 0);

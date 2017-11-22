@@ -19,10 +19,12 @@ import java.util.LinkedList;
 public class SearchProductAdapter extends RecyclerView.Adapter<SearchProductAdapter.MyViewHolder> {
     private LinkedList<ProductModel> modelList;
     private Context context;
+    private int type = 1;
 
-    public SearchProductAdapter(LinkedList<ProductModel> modelList, Context context) {
+    public SearchProductAdapter(LinkedList<ProductModel> modelList, Context context, int type) {
         this.modelList = modelList;
         this.context = context;
+        this.type = type;
     }
 
     @Override
@@ -40,6 +42,10 @@ public class SearchProductAdapter extends RecyclerView.Adapter<SearchProductAdap
         holder.txtProductName.setText(productModel.getProduct_name());
         holder.txtProductPrice.setText(String.valueOf(productModel.getProduct_price()) + " Ksh");
         holder.txtProductQuantity.setText(String.valueOf(productModel.getProduct_load_quantity()));
+        if (type == 2) {
+
+            holder.txtProductQuantity.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

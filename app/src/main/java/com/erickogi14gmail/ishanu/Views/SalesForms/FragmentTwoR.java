@@ -45,7 +45,7 @@ import java.util.LinkedList;
  * Created by Eric on 11/21/2017.
  */
 
-public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.DialogSearchListener {
+public class FragmentTwoR extends Fragment implements BlockingStep, DialogSearch.DialogSearchListener {
     int type = 1;
     private Button buttonAdd;
     private Dialog dialog;
@@ -55,19 +55,12 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
     private SaleSheetAdapter saleSheetAdapter;
     private TextView txtTotalPrice, txtTotalQuantity;
     private PrefrenceManager prefrenceManager;
+    private View view;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_two, container, false);
-
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        Log.d("amhere", "here");
+        view = inflater.inflate(R.layout.fragment_two, container, false);
         initD();
 
         buttonAdd = view.findViewById(R.id.btn_add);
@@ -79,40 +72,26 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
 
 
         intViews();
+        return view;
 
     }
+
 
     private void initD() {
         type = getArguments().getInt("type");
 
         prefrenceManager = new PrefrenceManager(getContext());
         productModels = new LinkedList<>();
-        if (type == 1) {
-            if (!prefrenceManager.getSales()[1].equals("null")) {
-                String products = prefrenceManager.getSales()[0];
-                Gson gson = new Gson();
 
-                Type collectionType1 = new TypeToken<Collection<ProductModel>>() {
-                }.getType();
-                Collection<ProductModel> enums = gson.fromJson(products, collectionType1);
-                productModels.addAll(enums);
-
-            }
-        } else {
-            if (!prefrenceManager.getReturns()[1].equals("null")) {
-                String products = prefrenceManager.getReturns()[0];
-                Gson gson = new Gson();
-//                Type collectionType = new TypeToken<Collection<ArrayList<ProductModel>>>() {
-//
-//                }.getType();
-//                ArrayList<ProductModel> P=gson.fromJson(products, collectionType);
-//                productModels.addAll(P);
-                Type collectionType1 = new TypeToken<Collection<ProductModel>>() {
-                }.getType();
-                Collection<ProductModel> enums = gson.fromJson(products, collectionType1);
-                productModels.addAll(enums);
-            }
+        if (!prefrenceManager.getReturns()[1].equals("null")) {
+            String products = prefrenceManager.getReturns()[0];
+            Gson gson = new Gson();
+            Type collectionType1 = new TypeToken<Collection<ProductModel>>() {
+            }.getType();
+            Collection<ProductModel> enums = gson.fromJson(products, collectionType1);
+            productModels.addAll(enums);
         }
+
     }
 
     private void intViews() {
@@ -173,28 +152,27 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
     }
 
 
-
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
         callback.getStepperLayout().showProgress("Operation in progress, please wait...");
 
         new Handler().postDelayed(() -> {
 
-            if (Double.valueOf(txtTotalPrice.getText().toString()) > 0.0) {
-                Gson gson = new Gson();
-                String data = gson.toJson(productModels);
-                if (type == 1) {
-                    prefrenceManager.storeSales(data, txtTotalPrice.getText().toString());
-                } else {
-                    prefrenceManager.storeReturns(data, txtTotalPrice.getText().toString());
-                }
-            }
+            // if(Double.valueOf(txtTotalPrice.getText().toString())>0.0){
+            Gson gson = new Gson();
+            String data = gson.toJson(productModels);
+
+            prefrenceManager.storeReturns(data, txtTotalPrice.getText().toString());
+            Log.d("saveddd", data);
+            //Toast.makeText(getContext(), "saved"+data, Toast.LENGTH_SHORT).show();
+
+            //   }
 
 
             //you can do anythings you want
             callback.goToNextStep();
             callback.getStepperLayout().hideProgress();
-        }, 200L);// delay open another fragment,
+        }, 0L);// delay open another fragment,
     }
 
     @Override
@@ -206,15 +184,13 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
     @Override
     public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
         new Handler().postDelayed(() -> {
-            type = getArguments().getInt("type");
+
             if (Double.valueOf(txtTotalPrice.getText().toString()) > 0.0) {
                 Gson gson = new Gson();
                 String data = gson.toJson(productModels);
-                if (type == 1) {
-                    prefrenceManager.storeSales(data, txtTotalPrice.getText().toString());
-                } else {
-                    prefrenceManager.storeReturns(data, txtTotalPrice.getText().toString());
-                }
+
+                prefrenceManager.storeReturns(data, txtTotalPrice.getText().toString());
+
             }
 
             //you can do anythings you want
@@ -243,7 +219,7 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
         DialogSearch dialogSearch = DialogSearch.newInstance("Search", type);
         // dialogSearch.show(fm,"dialog");
 
-        dialogSearch.setTargetFragment(FragmentTwo.this, 300);
+        dialogSearch.setTargetFragment(FragmentTwoR.this, 300);
         dialogSearch.show(fm, "fragment_search");
     }
 
@@ -339,13 +315,6 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
             }
             dialog.dismiss();
         });
-
-
-
-
-
-
-
 
 
         dialog.show();

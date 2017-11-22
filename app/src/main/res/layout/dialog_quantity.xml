@@ -7,16 +7,29 @@
     android:gravity="center_vertical"
     android:orientation="vertical">
 
+
     <TextView
+        android:id="@+id/product_name"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:paddingTop="6dp"
+        android:text="Item Name"
+        android:textAlignment="center"
+
+        />
+
+    <TextView
+        android:id="@+id/product_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
         android:layout_marginTop="12dp"
         android:paddingTop="6dp"
-        android:text="Quantity"
+        android:text="Price"
         android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="25sp" />
+        android:textColor="@color/black" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,6 +50,7 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:background="@drawable/rounded_border_transaparent"
+            android:digits="0123456789."
             android:inputType="number"
             android:textAlignment="center" />
 
@@ -56,15 +70,16 @@
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
-        <!--<Button-->
-        <!--android:id="@+id/btn_dismiss"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginEnd="2dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:background="@drawable/rounded_border_accent"-->
-        <!--android:text="Dismiss"-->
-        <!--android:textColor="@color/primary" />-->
+        <Button
+            android:id="@+id/btn_dismiss"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginEnd="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_border_accent"
+            android:text="Dismiss"
+            android:textColor="@color/primary" />
 
         <Button
             android:id="@+id/btn_update"
@@ -74,7 +89,7 @@
             android:layout_marginStart="2dp"
             android:layout_weight="1"
             android:background="@drawable/rounded_border_accent"
-            android:text="Update"
+            android:text="Add"
             android:textColor="@color/primary" />
     </LinearLayout>
 
