@@ -68,7 +68,7 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
         super.onViewCreated(view, savedInstanceState);
 
         Log.d("amhere", "here");
-        initD();
+
 
         buttonAdd = view.findViewById(R.id.btn_add);
         recyclerView = view.findViewById(R.id.recycler_view);
@@ -76,9 +76,9 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
         txtTotalQuantity = view.findViewById(R.id.total_quantity);
 
         buttonAdd.setOnClickListener(v -> showEditDialog());
+        initD();
 
 
-        intViews();
 
     }
 
@@ -113,6 +113,7 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
                 productModels.addAll(enums);
             }
         }
+        intViews();
     }
 
     private void intViews() {
@@ -230,7 +231,7 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
 
     @Override
     public void onSelected() {
-
+        initD();
     }
 
     @Override

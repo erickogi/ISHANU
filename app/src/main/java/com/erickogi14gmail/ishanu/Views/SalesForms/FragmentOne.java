@@ -8,11 +8,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.erickogi14gmail.ishanu.Data.Db.PrefrenceManager;
 import com.erickogi14gmail.ishanu.Data.Models.MyAccountModel;
 import com.erickogi14gmail.ishanu.R;
+import com.erickogi14gmail.ishanu.Utils.Toast;
 import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
@@ -28,6 +30,8 @@ import java.util.Date;
 public class FragmentOne extends Fragment implements BlockingStep {
     PrefrenceManager prefrenceManager;
     private TextView myName, myRoute, myCar, date;
+    private Spinner spinerCustomer, spinnerSerial;
+
 
 
     @Nullable
@@ -45,6 +49,11 @@ public class FragmentOne extends Fragment implements BlockingStep {
         myCar = view.findViewById(R.id.txt_my_car);
         myRoute = view.findViewById(R.id.txt_my_route);
         date = view.findViewById(R.id.txt_date);
+
+        spinerCustomer = view.findViewById(R.id.spinner_customer);
+        spinnerSerial = view.findViewById(R.id.spinner_serial);
+
+
 
 
         Date today = Calendar.getInstance().getTime();
@@ -66,9 +75,14 @@ public class FragmentOne extends Fragment implements BlockingStep {
             @Override
             public void run() {
 
-                //you can do anythings you want
-                callback.goToNextStep();
-                callback.getStepperLayout().hideProgress();
+                if (spinerCustomer.getSelectedItem().toString().equals("Select Customer") || spinnerSerial.getSelectedItem().toString().equals("Select Serial")) {
+                    Toast.toast("Select Customer and Serial", getContext(), R.drawable.ic_error_outline_black_24dp);
+                    callback.getStepperLayout().hideProgress();
+                } else {
+                    //you can do anythings you want
+                    callback.goToNextStep();
+                    callback.getStepperLayout().hideProgress();
+                }
             }
         }, 200L);// delay open another fragment,
     }

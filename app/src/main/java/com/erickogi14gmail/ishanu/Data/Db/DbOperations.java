@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.erickogi14gmail.ishanu.Data.Models.ProductModel;
+import com.erickogi14gmail.ishanu.Data.Models.RecordModel;
 
 import java.util.LinkedList;
 
@@ -87,6 +88,88 @@ public class DbOperations {
 
 
         if (db.insert("ishano_loading_data", null, values) >= 1) {
+            success = true;
+        }
+        db.close();
+
+
+        return success;
+
+
+    }
+
+
+    public LinkedList<RecordModel> getAllRecords(String date) {
+        //Open connection to read only
+        SQLiteDatabase db = dbHandler.getReadableDatabase();
+
+
+        LinkedList<RecordModel> data = new LinkedList<>();
+        String QUERY = null;
+
+
+        if (date.equals("")) {
+            QUERY = "SELECT * FROM  ishano_records_data WHERE   date LIKE '%" + date + "%'";
+        } else {
+            QUERY = "SELECT * FROM  ishano_records_data WHERE   date = '" + date + "'";
+        }
+
+
+        Cursor cursor = db.rawQuery(QUERY, null);
+
+        if (!cursor.isLast()) {
+
+            while (cursor.moveToNext()) {
+                RecordModel pojo = new RecordModel();
+                pojo.setRecord_id(cursor.getInt(0));
+                pojo.setProducts(cursor.getString(1));
+                pojo.setProduct_total(cursor.getString(2));
+                pojo.setRetutns(cursor.getString(3));
+                pojo.setReturns_total(cursor.getString(4));
+
+                pojo.setPaid(cursor.getString(5));
+                pojo.setBalance(cursor.getString(6));
+                pojo.setDate(cursor.getString(7));
+
+                data.add(pojo);
+
+            }
+        }
+        db.close();
+        // looping through all rows and adding to list
+
+        if (cursor == null) {
+            return null;
+        } else if (!cursor.moveToFirst()) {
+            cursor.close();
+            return null;
+        }
+        return data;
+
+
+    }
+
+    public boolean insertRecord(RecordModel data) {
+        boolean success = false;
+
+        SQLiteDatabase db = dbHandler.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        // values.put("item_id", data.getItem_id());
+        //values.put("product_id", String.valueOf(data.getProduct_id()));
+
+
+        values.put("products", data.getProducts());
+        values.put("product_total", data.getProduct_total());
+        values.put("retutns", data.getRetutns());
+        values.put("returns_total", data.getReturns_total());
+        values.put("paid", data.getPaid());
+
+        values.put("balance", data.getBalance());
+        values.put("date", data.getDate());
+
+
+        if (db.insert("ishano_records_data", null, values) >= 1) {
             success = true;
         }
         db.close();

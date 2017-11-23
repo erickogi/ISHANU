@@ -172,8 +172,9 @@
                     android:orientation="vertical">
 
                     <Spinner
-                        android:layout_width="match_parent"
+                        android:id="@+id/spinner_serial"
 
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
 
@@ -183,6 +184,7 @@
                     </Spinner>
 
                     <Spinner
+                        android:id="@+id/spinner_customer"
                         android:layout_width="match_parent"
 
                         android:layout_height="wrap_content"

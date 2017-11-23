@@ -13,13 +13,21 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.erickogi14gmail.ishanu.Data.Db.DbOperations;
 import com.erickogi14gmail.ishanu.Data.Db.PrefrenceManager;
+import com.erickogi14gmail.ishanu.Data.Models.RecordModel;
 import com.erickogi14gmail.ishanu.R;
 import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Eric on 11/22/2017.
@@ -30,13 +38,17 @@ public class FragmentThree extends Fragment implements BlockingStep {
     String[] returns;
     String[] sales;
     View view;
+    DbOperations dbOperations;
     private TextView txtTotalSales, txtTotalReturns, txtTotalDue, txtPaid, txtBalance;
     private TextInputEditText edtMpesa, edtCash, edtCheque, edtComments;
     private PrefrenceManager prefrenceManager;
     private Double total_sales = 0.0, total_returns = 0.0, total_due = 0.0;
     private Double total_paid = 0.0;
+    private ImageView inspectSales, inspectRetruns;
+    private String returnsData = "null", salesData = "null";
 
     private void intUi(View view) {
+        dbOperations = new DbOperations(getContext());
         prefrenceManager = new PrefrenceManager(getContext());
         txtTotalSales = view.findViewById(R.id.txt_total_sales);
         txtTotalReturns = view.findViewById(R.id.txt_total_returns);
@@ -46,6 +58,25 @@ public class FragmentThree extends Fragment implements BlockingStep {
         edtMpesa = view.findViewById(R.id.edt_mpesa);
         edtCash = view.findViewById(R.id.edt_cash);
         edtCheque = view.findViewById(R.id.edt_cheque);
+
+        inspectRetruns = view.findViewById(R.id.inspect_returns);
+        inspectSales = view.findViewById(R.id.inspect_sales);
+
+        inspectSales.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StepperLayout stepperLayout = getActivity().findViewById(R.id.stepperLayout);
+                stepperLayout.setCurrentStepPosition(1);
+            }
+        });
+        inspectRetruns.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StepperLayout stepperLayout = getActivity().findViewById(R.id.stepperLayout);
+                stepperLayout.setCurrentStepPosition(2);
+            }
+        });
+
         edtComments = view.findViewById(R.id.edt_comments);
         returns = prefrenceManager.getReturns();
         sales = prefrenceManager.getSales();
@@ -56,11 +87,13 @@ public class FragmentThree extends Fragment implements BlockingStep {
 
 
         if (!sales[1].equals("null")) {
+            salesData = sales[0];
             total_sales = Double.valueOf(sales[1]);
             txtTotalSales.setText(sales[1] + " Ksh");
         }
         if (!returns[1].equals("null")) {
 
+            returnsData = returns[0];
             total_returns = Double.valueOf(returns[1]);
             txtTotalReturns.setText(returns[1] + " Ksh");
         }
@@ -189,8 +222,27 @@ public class FragmentThree extends Fragment implements BlockingStep {
             @Override
             public void run() {
 
-                alertDialogDelete("You are about to transimt this data.If You are sure ,click on confirm. NB* This action is irreversible", 1
-                        , callback);
+                if (!salesData.equals("null") || !returnsData.equals("null")) {
+                    Date today = Calendar.getInstance().getTime();
+                    SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+                    String datee = DATE_FORMAT.format(today);
+                    RecordModel recordModel = new RecordModel();
+                    recordModel.setProducts(salesData);
+                    recordModel.setProduct_total(String.valueOf(total_sales));
+
+                    recordModel.setRetutns(returnsData);
+                    recordModel.setReturns_total(String.valueOf(total_returns));
+
+                    recordModel.setPaid(String.valueOf(total_paid));
+                    recordModel.setBalance(txtBalance.getText().toString());
+                    recordModel.setDate(datee);
+
+
+                    alertDialogDelete("You are about to transimt this data.If You are sure ,click on confirm. NB* This action is irreversible", 1
+                            , callback, recordModel);
+                } else {
+                    com.erickogi14gmail.ishanu.Utils.Toast.toast("No data for transmission", getContext(), R.drawable.ic_error_outline_black_24dp);
+                }
                 //you can do anythings you want
                 //callback.complete();
             }
@@ -224,13 +276,19 @@ public class FragmentThree extends Fragment implements BlockingStep {
     }
 
 
-    private void alertDialogDelete(final String message, final int id, StepperLayout.OnCompleteClickedCallback callback) {
+    private void alertDialogDelete(final String message, final int id, StepperLayout.OnCompleteClickedCallback callback, RecordModel recordModel) {
         final DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
-                    prefrenceManager.clearReturnsData();
-                    prefrenceManager.clearSalesData();
-                    callback.complete();
+
+
+                    if (dbOperations.insertRecord(recordModel)) {
+                        prefrenceManager.clearReturnsData();
+                        prefrenceManager.clearSalesData();
+                        callback.complete();
+                    } else {
+                        Toast.makeText(getContext(), "Error Saving", Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case DialogInterface.BUTTON_NEGATIVE:
                     dialog.dismiss();

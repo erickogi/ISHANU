@@ -18,6 +18,7 @@
         <activity
             android:name=".Views.BaseActivity"
             android:label="@string/title_activity_base"
+            android:parentActivityName=".Views.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Views.Login.LoginActivity"

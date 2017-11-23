@@ -23,6 +23,21 @@ public class DbClass extends SQLiteOpenHelper {
 
             + ")";
 
+    String createTableRecords = "CREATE TABLE `ishano_records_data` (" +
+            "  `record_id` INTEGER PRIMARY KEY AUTOINCREMENT  ," +
+            "  `products` varchar NOT NULL," +
+            "  `product_total` varchar NOT NULL," +
+            "  `retutns` varchar NOT NULL," +
+            "  `returns_total` varchar , " +
+
+            "  `paid` varchar NOT NULL," +
+            "  `balance` varchar , " +
+
+            "  `date` varchar "
+
+
+            + ")";
+
     public DbClass(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -31,12 +46,14 @@ public class DbClass extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(createTableItems);
+        db.execSQL(createTableRecords);
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + createTableItems);
+        db.execSQL("DROP TABLE IF EXISTS " + createTableRecords);
 
     }
 }

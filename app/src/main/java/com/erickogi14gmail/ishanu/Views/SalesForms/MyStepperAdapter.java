@@ -39,7 +39,7 @@ public class MyStepperAdapter extends AbstractFragmentStepAdapter {
                 step2.setArguments(b2);
                 return step2;
             case 2:
-                final FragmentTwoR step3 = new FragmentTwoR();
+                final FragmentTwo step3 = new FragmentTwo();
                 Bundle b3 = new Bundle();
                 b3.putInt(CURRENT_STEP_POSITION_KEY, position);
                 b3.putInt("type", 2);

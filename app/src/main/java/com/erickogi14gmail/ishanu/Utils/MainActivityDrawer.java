@@ -122,7 +122,7 @@ public class MainActivityDrawer {
                 .addDrawerItems(
                         // favorites,
                         sell, reports, notifications,  new DividerDrawerItem(), account,
-                         settingd,
+
                         new DividerDrawerItem(),
                         logout,
                         help, about
