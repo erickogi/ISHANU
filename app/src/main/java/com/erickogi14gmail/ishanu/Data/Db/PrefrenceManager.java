@@ -11,11 +11,15 @@ import com.erickogi14gmail.ishanu.Data.Models.MyAccountModel;
 
 public class PrefrenceManager {
     private static final String PREF_NAME = "ishano";
+
     // All Shared Preferences Keys
+
     private static final String KEY_IS_WAITING_FOR_SMS = "IsWaitingForSms";
     private static final String KEY_MOBILE_NUMBER = "mobile_number";
+
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
     private static final String KEY_NAME = "name";
+
     private static final String KEY_EMAIL = "email";
     private static final String KEY_MOBILE = "mobile";
     private static final String KEY_ROUTE = "rout";
@@ -32,8 +36,7 @@ public class PrefrenceManager {
 
     private static final String KEY_CAR = "car";
 
-
-
+    private static final String KEY_CUSTOMER_NAME = "customer";
 
 
     // Shared Preferences
@@ -60,21 +63,49 @@ public class PrefrenceManager {
         editor.commit();
     }
 
+    public String getCustomer() {
+
+        return pref.getString(KEY_CUSTOMER_NAME, "Customers Name");
+    }
+
+    public void setCustomersName(String name) {
+
+        editor.putString(KEY_CUSTOMER_NAME, name);
+        editor.commit();
+
+    }
+
+    public void clearCustomerName() {
+
+        editor.putString(KEY_CUSTOMER_NAME, "null");
+        editor.remove(KEY_CUSTOMER_NAME);
+
+        editor.commit();
+    }
+
     public String[] getLoginParams() {
+
         String params[] = new String[3];
         params[0] = pref.getString(KEY_PASSWORD, "null");
+
         params[1] = pref.getString(KEY_MOBILE, "null");
         params[2] = pref.getString(KEY_EMAIL, "null");
+
+
         return params;
     }
 
     public void createLogin(MyAccountModel myAccountModel) {
+
         editor.putString(KEY_NAME, myAccountModel.getName());
         editor.putString(KEY_EMAIL, myAccountModel.getEmail());
+
         editor.putString(KEY_MOBILE, myAccountModel.getMobilr());
         editor.putString(KEY_MOBILE_NUMBER, myAccountModel.getMobilr());
+
         editor.putBoolean(KEY_IS_LOGGED_IN, true);
         editor.putString(KEY_PASSWORD, myAccountModel.getPassword());
+
         editor.putString(KEY_ROUTE, myAccountModel.getRoute());
         editor.putString(KEY_CAR, myAccountModel.getCar());
         editor.commit();
@@ -103,6 +134,7 @@ public class PrefrenceManager {
 
     public String[] getReturns() {
         String[] returns = new String[2];
+
         returns[0] = pref.getString(KEY_RETURNS, "null");
         returns[1] = pref.getString(KEY_TOTAL_RETURNS, "null");
 
@@ -110,11 +142,13 @@ public class PrefrenceManager {
     }
 
     public void clearSalesData() {
+
         editor.putString(KEY_SALES, "null");
         editor.putString(KEY_TOTAL_SALES, "null");
 
         editor.remove(KEY_SALES);
         editor.remove(KEY_TOTAL_SALES);
+
         editor.remove(KEY_TOTAL_RETURNS);
         editor.remove(KEY_RETURNS);
         editor.commit();
@@ -133,18 +167,23 @@ public class PrefrenceManager {
 
 
     public MyAccountModel getAccount() {
+
         MyAccountModel myAccountModel = new MyAccountModel();
+
         myAccountModel.setName(pref.getString(KEY_NAME, "My Name"));
+
         myAccountModel.setEmail(pref.getString(KEY_EMAIL, "myemail@gmail.com"));
+
         myAccountModel.setMobilr(pref.getString(KEY_MOBILE, "0712345678"));
+
         myAccountModel.setCar(pref.getString(KEY_CAR, "KBJ 123"));
+
         myAccountModel.setPassword(pref.getString(KEY_PASSWORD, "mypassword"));
+
         myAccountModel.setRoute(pref.getString(KEY_ROUTE, "myroute"));
 
         return myAccountModel;
     }
-
-
 
 
     public boolean isLoggedIn() {

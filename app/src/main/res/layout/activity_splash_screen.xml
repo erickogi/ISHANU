@@ -6,14 +6,19 @@
     android:background="@color/primary"
     tools:context="com.erickogi14gmail.ishanu.Views.Login.SplashScreenActivity">
 
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
         android:layout_centerVertical="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
+        <!--<VideoView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
         <ImageView
             android:id="@+id/img_logol"
             android:layout_width="wrap_content"

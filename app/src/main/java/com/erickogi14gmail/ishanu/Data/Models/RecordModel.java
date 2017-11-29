@@ -1,20 +1,62 @@
 package com.erickogi14gmail.ishanu.Data.Models;
 
+import java.io.Serializable;
+
 /**
  * Created by Eric on 11/23/2017.
  */
 
-public class RecordModel {
+public class RecordModel implements Serializable {
     private int record_id;
     private String products;
     private String product_total;
     private String retutns;
     private String returns_total;
 
+
     private String paid;
     private String balance;
 
+
     private String date;
+
+    private String customer_name;
+
+    private String cash;
+    private String mpesa;
+    private String cheque;
+
+    public String getCash() {
+        return cash;
+    }
+
+    public void setCash(String cash) {
+        this.cash = cash;
+    }
+
+    public String getMpesa() {
+        return mpesa;
+    }
+
+    public void setMpesa(String mpesa) {
+        this.mpesa = mpesa;
+    }
+
+    public String getCheque() {
+        return cheque;
+    }
+
+    public void setCheque(String cheque) {
+        this.cheque = cheque;
+    }
+
+    public String getCustomer_name() {
+        return customer_name;
+    }
+
+    public void setCustomer_name(String customer_name) {
+        this.customer_name = customer_name;
+    }
 
     public int getRecord_id() {
         return record_id;

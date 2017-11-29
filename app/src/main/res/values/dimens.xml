@@ -3,4 +3,6 @@
     <dimen name="login_screen_logo_padding">16dp</dimen>
     <dimen name="welcome_title_size">32sp</dimen>
     <dimen name="welcome_title_padding">24dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>

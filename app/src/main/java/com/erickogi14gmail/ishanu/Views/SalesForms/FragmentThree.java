@@ -38,7 +38,10 @@ public class FragmentThree extends Fragment implements BlockingStep {
     String[] returns;
     String[] sales;
     View view;
+    //private QBadgeView qBadgeView;
     DbOperations dbOperations;
+
+
     private TextView txtTotalSales, txtTotalReturns, txtTotalDue, txtPaid, txtBalance;
     private TextInputEditText edtMpesa, edtCash, edtCheque, edtComments;
     private PrefrenceManager prefrenceManager;
@@ -46,6 +49,7 @@ public class FragmentThree extends Fragment implements BlockingStep {
     private Double total_paid = 0.0;
     private ImageView inspectSales, inspectRetruns;
     private String returnsData = "null", salesData = "null";
+    private double total_balance = 0.0;
 
     private void intUi(View view) {
         dbOperations = new DbOperations(getContext());
@@ -55,10 +59,16 @@ public class FragmentThree extends Fragment implements BlockingStep {
         txtTotalDue = view.findViewById(R.id.txt_total_due);
         txtPaid = view.findViewById(R.id.txt_paid);
         txtBalance = view.findViewById(R.id.txt_balance);
+
+
         edtMpesa = view.findViewById(R.id.edt_mpesa);
         edtCash = view.findViewById(R.id.edt_cash);
         edtCheque = view.findViewById(R.id.edt_cheque);
 
+        edtMpesa.setText("0.0");
+        edtCash.setText("0.0");
+        edtCheque.setText("0.0");
+        //  qBadgeView = new QBadgeView(getContext());
         inspectRetruns = view.findViewById(R.id.inspect_returns);
         inspectSales = view.findViewById(R.id.inspect_sales);
 
@@ -90,17 +100,33 @@ public class FragmentThree extends Fragment implements BlockingStep {
             salesData = sales[0];
             total_sales = Double.valueOf(sales[1]);
             txtTotalSales.setText(sales[1] + " Ksh");
+//            qBadgeView.bindTarget(txtTotalSales).setBadgeNumber(3).
+//                    setBadgeGravity(Gravity.CENTER | Gravity.END).
+//                    setBadgeBackgroundColor(this.getResources().getColor(R.color.colorAccent));
+//
+
         }
         if (!returns[1].equals("null")) {
 
             returnsData = returns[0];
             total_returns = Double.valueOf(returns[1]);
             txtTotalReturns.setText(returns[1] + " Ksh");
+
+//            qBadgeView.bindTarget(txtTotalReturns).setBadgeNumber(3).
+//                    setBadgeGravity(Gravity.CENTER | Gravity.END).
+//                    setBadgeBackgroundColor(this.getResources().getColor(R.color.colorAccent));
         }
 
         txtTotalDue.setText(String.valueOf(total_sales - total_returns));
+        total_balance = total_sales - total_returns;
         total_due = total_sales - total_returns;
-
+        Double mpesa = 0.0;
+        Double cash = 0.0;
+        Double cheque = 0.0;
+        total_paid = mpesa + cash + cheque;
+        txtPaid.setText("Total Paid : " + String.valueOf(total_paid) + " Ksh");
+        txtBalance.setText("Balance : " + String.valueOf(total_due - total_paid) + " Ksh");
+        total_balance = total_due - total_paid;
 
         edtMpesa.addTextChangedListener(new TextWatcher() {
             @Override
@@ -117,13 +143,14 @@ public class FragmentThree extends Fragment implements BlockingStep {
             public void afterTextChanged(Editable s) {
 
                 try {
-                    if (Double.valueOf(s.toString()) > 0.0) {
+                    if (Double.valueOf(s.toString()) >= 0.0) {
                         Double mpesa = Double.valueOf(s.toString());
                         Double cash = Double.valueOf(edtCash.getText().toString());
                         Double cheque = Double.valueOf(edtCheque.getText().toString());
                         total_paid = mpesa + cash + cheque;
                         txtPaid.setText("Total Paid : " + String.valueOf(total_paid) + " Ksh");
                         txtBalance.setText("Balance : " + String.valueOf(total_due - total_paid) + " Ksh");
+                        total_balance = total_due - total_paid;
 
 
                     } else {
@@ -149,13 +176,14 @@ public class FragmentThree extends Fragment implements BlockingStep {
             @Override
             public void afterTextChanged(Editable s) {
                 try {
-                    if (Double.valueOf(s.toString()) > 0.0) {
+                    if (Double.valueOf(s.toString()) >= 0.0) {
                         Double mpesa = Double.valueOf(edtMpesa.getText().toString());
                         Double cash = Double.valueOf(edtCash.getText().toString());
                         Double cheque = Double.valueOf(s.toString());
                         total_paid = mpesa + cash + cheque;
                         txtPaid.setText("Total Paid : " + String.valueOf(total_paid) + " Ksh");
                         txtBalance.setText("Balance : " + String.valueOf(total_due - total_paid) + " Ksh");
+                        total_balance = total_due - total_paid;
                     } else {
 
                         // edtCheque.setText("0.0");
@@ -179,13 +207,14 @@ public class FragmentThree extends Fragment implements BlockingStep {
             @Override
             public void afterTextChanged(Editable s) {
                 try {
-                    if (Double.valueOf(s.toString()) > 0.0) {
+                    if (Double.valueOf(s.toString()) >= 0.0) {
                         Double mpesa = Double.valueOf(edtMpesa.getText().toString());
                         Double cash = Double.valueOf(s.toString());
                         Double cheque = Double.valueOf(edtCheque.getText().toString());
                         total_paid = mpesa + cash + cheque;
                         txtPaid.setText("Total Paid : " + String.valueOf(total_paid) + " Ksh");
                         txtBalance.setText("Balance : " + String.valueOf(total_due - total_paid) + " Ksh");
+                        total_balance = total_due - total_paid;
                     } else {
 
                         // edtCash.setText("0.0");
@@ -234,8 +263,12 @@ public class FragmentThree extends Fragment implements BlockingStep {
                     recordModel.setReturns_total(String.valueOf(total_returns));
 
                     recordModel.setPaid(String.valueOf(total_paid));
-                    recordModel.setBalance(txtBalance.getText().toString());
+                    recordModel.setBalance(String.valueOf(total_balance));
                     recordModel.setDate(datee);
+                    recordModel.setCustomer_name(prefrenceManager.getCustomer());
+                    recordModel.setCash(edtCash.getText().toString());
+                    recordModel.setCheque(edtCheque.getText().toString());
+                    recordModel.setMpesa(edtMpesa.getText().toString());
 
 
                     alertDialogDelete("You are about to transimt this data.If You are sure ,click on confirm. NB* This action is irreversible", 1
@@ -283,8 +316,10 @@ public class FragmentThree extends Fragment implements BlockingStep {
 
 
                     if (dbOperations.insertRecord(recordModel)) {
+                        prefrenceManager.clearCustomerName();
                         prefrenceManager.clearReturnsData();
                         prefrenceManager.clearSalesData();
+
                         callback.complete();
                     } else {
                         Toast.makeText(getContext(), "Error Saving", Toast.LENGTH_SHORT).show();
@@ -305,4 +340,6 @@ public class FragmentThree extends Fragment implements BlockingStep {
                 .setNegativeButton("Dismiss", dialogClickListener).show();
 
     }
+
+
 }

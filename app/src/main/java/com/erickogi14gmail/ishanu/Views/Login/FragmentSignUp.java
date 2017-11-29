@@ -128,14 +128,4 @@ public class FragmentSignUp extends Fragment {
     }
 
 
-
-
-
-
-
-
-
-
-
-
 }

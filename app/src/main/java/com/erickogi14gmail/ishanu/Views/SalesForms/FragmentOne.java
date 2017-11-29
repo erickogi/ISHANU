@@ -32,6 +32,7 @@ public class FragmentOne extends Fragment implements BlockingStep {
     private TextView myName, myRoute, myCar, date;
     private Spinner spinerCustomer, spinnerSerial;
 
+    private TextView lmyName, lmyDate, lmyRoute, lmyCar;
 
 
     @Nullable
@@ -54,8 +55,6 @@ public class FragmentOne extends Fragment implements BlockingStep {
         spinnerSerial = view.findViewById(R.id.spinner_serial);
 
 
-
-
         Date today = Calendar.getInstance().getTime();
         SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
         String datee = DATE_FORMAT.format(today);
@@ -64,6 +63,27 @@ public class FragmentOne extends Fragment implements BlockingStep {
         myName.setText(myAccountModel.getName());
         myCar.setText(myAccountModel.getCar());
         myRoute.setText(myAccountModel.getRoute());
+
+
+        try {
+
+
+            lmyName = view.findViewById(R.id.my_name);
+            lmyDate = view.findViewById(R.id.my_date);
+            lmyRoute = view.findViewById(R.id.my_route);
+            lmyCar = view.findViewById(R.id.my_car);
+
+
+            lmyName.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.name, 0);
+            lmyDate.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.today, 0);
+
+            lmyRoute.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.route, 0);
+            lmyCar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.car, 0);
+
+        } catch (Exception nm) {
+
+            nm.printStackTrace();
+        }
 
     }
 
@@ -75,10 +95,11 @@ public class FragmentOne extends Fragment implements BlockingStep {
             @Override
             public void run() {
 
-                if (spinerCustomer.getSelectedItem().toString().equals("Select Customer") || spinnerSerial.getSelectedItem().toString().equals("Select Serial")) {
+                if (spinerCustomer.getSelectedItem().toString().equals("Select Customer") || spinnerSerial.getSelectedItem().toString().equals("Select Sortie")) {
                     Toast.toast("Select Customer and Serial", getContext(), R.drawable.ic_error_outline_black_24dp);
                     callback.getStepperLayout().hideProgress();
                 } else {
+                    prefrenceManager.setCustomersName(spinerCustomer.getSelectedItem().toString());
                     //you can do anythings you want
                     callback.goToNextStep();
                     callback.getStepperLayout().hideProgress();

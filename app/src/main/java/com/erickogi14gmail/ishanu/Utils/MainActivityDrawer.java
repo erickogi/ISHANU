@@ -59,8 +59,7 @@ public class MainActivityDrawer {
                 .withName("Reports").withIcon(R.drawable.report);
         PrimaryDrawerItem notifications = new PrimaryDrawerItem().withIdentifier(3)
                 .withName("Notifications").withIcon(R.drawable.notifications)
-                 .withBadge("3")
-                ;
+                .withBadge("3");
 
 
         PrimaryDrawerItem account = new PrimaryDrawerItem().withIdentifier(4)
@@ -68,7 +67,6 @@ public class MainActivityDrawer {
         PrimaryDrawerItem settingd = new PrimaryDrawerItem().withIdentifier(5)
                 .withIcon(R.drawable.setting)
                 .withName("Settings");
-
 
 
         SecondaryDrawerItem logout = new SecondaryDrawerItem().withIdentifier(6)
@@ -106,7 +104,7 @@ public class MainActivityDrawer {
         result = new DrawerBuilder()
 
                 .withActivity(activity)
-               // .withFooter(R.layout.footer)
+                // .withFooter(R.layout.footer)
 
                 //.withGenerateMiniDrawer(true)
                 .withFooterDivider(false)
@@ -121,7 +119,7 @@ public class MainActivityDrawer {
                 .withSelectedItem(-1)
                 .addDrawerItems(
                         // favorites,
-                        sell, reports, notifications,  new DividerDrawerItem(), account,
+                        sell, reports, notifications, new DividerDrawerItem(), account,
 
                         new DividerDrawerItem(),
                         logout,

@@ -44,7 +44,13 @@ public class SaleSheetAdapter extends RecyclerView.Adapter<SaleSheetAdapter.MyVi
         ProductModel productModel = modelList.get(position);
         holder.txtItemName.setText(productModel.getProduct_name() + " * " + productModel.getProduct_sale_quantity());
         double Qty = Double.valueOf(productModel.getProduct_sale_quantity()) * Double.valueOf(productModel.getProduct_price());
+        try {
+            holder.txtItemTotalPrice.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pric, 0, 0, 0);
+        } catch (Exception nm) {
+
+        }
         holder.txtItemTotalPrice.setText("" + String.valueOf(Qty) + " Ksh");
+
         holder.txtItemPrice.setText("@ : " + productModel.getProduct_price() + "  Ksh");
     }
 
@@ -88,11 +94,11 @@ public class SaleSheetAdapter extends RecyclerView.Adapter<SaleSheetAdapter.MyVi
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btn_remove:
-                    listenerWeakReference.get().onDeleteClicked(getAdapterPosition());
+                    listenerWeakReference.get().onDeleteClicked(getAdapterPosition(), modelList);
 
                     break;
                 case R.id.btn_change:
-                    listenerWeakReference.get().onEditClicked(getAdapterPosition());
+                    listenerWeakReference.get().onEditClicked(getAdapterPosition(), modelList);
 
 
                     break;

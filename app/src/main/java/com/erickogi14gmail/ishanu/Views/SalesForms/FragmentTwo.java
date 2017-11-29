@@ -75,9 +75,17 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
         txtTotalPrice = view.findViewById(R.id.total_price);
         txtTotalQuantity = view.findViewById(R.id.total_quantity);
 
+        try {
+
+
+            //   txtTotalPrice.setCompoundDrawablesWithIntrinsicBounds(R.drawable.tprice, 0, 0, 0);
+            //   txtTotalQuantity.setCompoundDrawablesWithIntrinsicBounds(R.drawable.cart, 0, 0, 0);
+
+        } catch (Exception nm) {
+
+        }
         buttonAdd.setOnClickListener(v -> showEditDialog());
         initD();
-
 
 
     }
@@ -120,15 +128,17 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
 
         saleSheetAdapter = new SaleSheetAdapter(getContext(), productModels, new SaleSheetListner() {
             @Override
-            public void onEditClicked(int pos) {
+            public void onEditClicked(int pos, LinkedList<ProductModel> productModel) {
 
+                productModels = productModel;
                 quantityDialog(productModels.get(pos), 2, pos, productModels.get(pos).getProduct_sale_quantity());
 
             }
 
             @Override
-            public void onDeleteClicked(int pos) {
+            public void onDeleteClicked(int pos, LinkedList<ProductModel> productModel) {
 
+                productModels = productModel;
 
                 alertDialogDelete("Please Confirm the action to delete this item :> " + productModels.get(pos).getProduct_name(), pos);
 
@@ -174,9 +184,10 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
     }
 
 
-
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
+
+
         callback.getStepperLayout().showProgress("Operation in progress, please wait...");
 
         new Handler().postDelayed(() -> {
@@ -340,13 +351,6 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
             }
             dialog.dismiss();
         });
-
-
-
-
-
-
-
 
 
         dialog.show();

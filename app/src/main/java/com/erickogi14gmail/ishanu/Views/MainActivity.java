@@ -14,8 +14,8 @@ import android.transition.Slide;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
+import com.erickogi14gmail.ishanu.Adapters.MyStepperAdapter;
 import com.erickogi14gmail.ishanu.Data.Db.DbOperations;
 import com.erickogi14gmail.ishanu.Data.Db.PrefrenceManager;
 import com.erickogi14gmail.ishanu.Data.Models.DataGen;
@@ -24,8 +24,8 @@ import com.erickogi14gmail.ishanu.Data.Models.ProductModel;
 import com.erickogi14gmail.ishanu.Interfaces.DrawerItemListener;
 import com.erickogi14gmail.ishanu.R;
 import com.erickogi14gmail.ishanu.Utils.MainActivityDrawer;
+import com.erickogi14gmail.ishanu.Utils.Toast;
 import com.erickogi14gmail.ishanu.Views.Login.LoginActivity;
-import com.erickogi14gmail.ishanu.Views.SalesForms.MyStepperAdapter;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements StepperLayout.Ste
                 .setAction("Action", null).show());
         fab.hide();
 
-        HashMap<String,String> details=new HashMap<>();
+        HashMap<String, String> details = new HashMap<>();
         details.put("name", myAccountModel.getName());
         details.put("email", myAccountModel.getEmail());
         Intent intent = new Intent(MainActivity.this, BaseActivity.class);
@@ -169,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements StepperLayout.Ste
                 .setNegativeButton("Clear", dialogClickListener).show();
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -194,9 +195,10 @@ public class MainActivity extends AppCompatActivity implements StepperLayout.Ste
     @Override
     public void onCompleted(View completeButton) {
 
+        Toast.toast("Thank you for testing the app", MainActivity.this, R.drawable.ic_thumb_up_black_24dp);
 
         // StepperLayout.setCurrentStepPosition(int)
-        Toast.makeText(this, "Thank you for testing ISHANU APP ", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "Thank you for testing ISHANU APP ", Toast.LENGTH_SHORT).show();
         mStepperLayout.setCurrentStepPosition(0);
     }
 

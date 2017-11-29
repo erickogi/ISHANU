@@ -54,15 +54,18 @@
                 </LinearLayout>
 
                 <LinearLayout
+
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
 
                     <TextView
+
                         android:id="@+id/item_total_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="6000 ksh"
+                        android:textAlignment="textEnd"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -84,7 +87,7 @@
                     android:layout_height="35dp"
                     android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:background="@color/colorAccent"
+                    android:background="@color/md_cyan_50"
                     android:padding="2dp"
                     android:text="Edit" />
 
@@ -94,7 +97,7 @@
                     android:layout_height="35dp"
                     android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:background="@color/colorAccent"
+                    android:background="@color/md_cyan_50"
                     android:padding="2dp"
                     android:text="Delete" />
             </LinearLayout>

@@ -15,8 +15,10 @@ import android.transition.Slide;
 import android.view.View;
 
 import com.erickogi14gmail.ishanu.R;
+import com.erickogi14gmail.ishanu.Views.Records.FrgamentRecords;
 import com.erickogi14gmail.ishanu.Views.Support.FragmentAbout;
 import com.erickogi14gmail.ishanu.Views.Support.FragmentSupport;
+import com.erickogi14gmail.ishanu.Views.Support.Fragment_Account;
 
 public class BaseActivity extends AppCompatActivity {
     public static Fragment fragment = null;
@@ -66,7 +68,7 @@ public class BaseActivity extends AppCompatActivity {
             case 1:
                 fragment = new FrgamentRecords();
                 this.setTitle("Records");
-                popOutFragments();
+                //popOutFragments();
                 setUpView();
                 break;
 
@@ -74,7 +76,7 @@ public class BaseActivity extends AppCompatActivity {
 
                 fragment = new Fragment_Account();
                 this.setTitle("My Account");
-                popOutFragments();
+                //popOutFragments();
                 setUpView();
 
                 break;

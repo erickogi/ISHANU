@@ -21,18 +21,16 @@ public class LoginActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_login);
-        fragment = new WelcomeFragment();
+        fragment = new FragmentLogin();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_layout, fragment, "fragmentWelcome").commit();
     }
 
     public void newAccountBtnPressed(View view) {
         popOutFragments();
-        fragment = new FragmentSignUp();
+        fragment = new FragmentLogin();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_layout, fragment, "fragmentsignup").addToBackStack(null).commit();
-
-        //signUpFragment = (SignUpFragment) getSupportFragmentManager().findFragmentByTag("fragmentsignup");
 
 
     }

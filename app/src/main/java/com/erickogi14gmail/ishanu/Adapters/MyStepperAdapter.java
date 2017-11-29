@@ -1,4 +1,4 @@
-package com.erickogi14gmail.ishanu.Views.SalesForms;
+package com.erickogi14gmail.ishanu.Adapters;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 
+import com.erickogi14gmail.ishanu.Views.SalesForms.FragmentOne;
+import com.erickogi14gmail.ishanu.Views.SalesForms.FragmentThree;
+import com.erickogi14gmail.ishanu.Views.SalesForms.FragmentTwo;
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.adapter.AbstractFragmentStepAdapter;
 import com.stepstone.stepper.viewmodel.StepViewModel;

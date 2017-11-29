@@ -38,7 +38,6 @@ public class DbOperations {
         QUERY = "SELECT * FROM  ishano_loading_data WHERE  product_name LIKE '%" + search + "%' AND product_type= '" + type + "'";
 
 
-
         Cursor cursor = db.rawQuery(QUERY, null);
 
         if (!cursor.isLast()) {
@@ -131,6 +130,12 @@ public class DbOperations {
                 pojo.setBalance(cursor.getString(6));
                 pojo.setDate(cursor.getString(7));
 
+                pojo.setCustomer_name(cursor.getString(8));
+
+                pojo.setCash(cursor.getString(9));
+                pojo.setMpesa(cursor.getString(10));
+                pojo.setCheque(cursor.getString(11));
+
                 data.add(pojo);
 
             }
@@ -167,6 +172,11 @@ public class DbOperations {
 
         values.put("balance", data.getBalance());
         values.put("date", data.getDate());
+        values.put("customer", data.getCustomer_name());
+
+        values.put("cash", data.getCash());
+        values.put("mpesa", data.getMpesa());
+        values.put("cheque", data.getCheque());
 
 
         if (db.insert("ishano_records_data", null, values) >= 1) {

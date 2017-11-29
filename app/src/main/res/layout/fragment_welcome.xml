@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="@dimen/welcome_title_padding"
-            android:text="Welcome to  "
+            android:text="Welcome"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="@dimen/welcome_title_size"

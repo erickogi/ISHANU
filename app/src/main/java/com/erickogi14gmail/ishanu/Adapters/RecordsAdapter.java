@@ -42,7 +42,7 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.MyViewHo
         // holder.textViewDate.setText(recordModel.getTransaction_date());
         holder.textViewDate.setText(recordModel.getDate());
         holder.textViewPrice.setText("Due  " + String.valueOf(Double.valueOf(recordModel.getProduct_total())
-                + Double.valueOf(recordModel.getReturns_total())) + " Ksh");
+                - Double.valueOf(recordModel.getReturns_total())) + " Ksh");
 
     }
 

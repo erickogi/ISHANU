@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.erickogi14gmail.ishanu.Data.Db.PrefrenceManager;
+import com.erickogi14gmail.ishanu.Data.Models.MyAccountModel;
 import com.erickogi14gmail.ishanu.R;
 import com.erickogi14gmail.ishanu.Views.MainActivity;
 
@@ -21,6 +22,7 @@ import com.erickogi14gmail.ishanu.Views.MainActivity;
 public class FragmentLogin extends Fragment {
     private TextInputEditText edtEmail, edtPassword;
     private Button btnLogin;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,9 +50,21 @@ public class FragmentLogin extends Fragment {
             if (isFilled(edtEmail) && isFilled(edtPassword)) {
                 PrefrenceManager prefrenceManager = new PrefrenceManager(getContext());
                 String[] params = prefrenceManager.getLoginParams();
-                if (edtPassword.getText().toString().contentEquals(params[0])) {
-                    if (edtEmail.getText().toString().contentEquals(params[1]) || edtEmail.getText().toString().contentEquals(params[2])) {
+                if (edtPassword.getText().toString().contentEquals("123456")) {
+                    if (edtEmail.getText().toString().contentEquals("eric@zalego.com") || edtEmail.getText().toString().contentEquals("072345678")) {
                         prefrenceManager.setIsLoggedIn(true);
+
+                        MyAccountModel myAccountModel = new MyAccountModel();
+                        myAccountModel.setName("Eric ");
+                        myAccountModel.setEmail("eric@zalego.com");
+                        myAccountModel.setMobilr("072345678");
+                        myAccountModel.setPassword("23456");
+                        myAccountModel.setCar("KBG 423 Y");
+                        myAccountModel.setRoute("Waiyaki Way");
+                        // PrefrenceManager prefrenceManager = new PrefrenceManager(getContext());
+                        prefrenceManager.createLogin(myAccountModel);
+
+
                         getActivity().finish();
                         startActivity(new Intent(getActivity(), MainActivity.class));
                     } else {

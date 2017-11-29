@@ -1,4 +1,4 @@
-package com.erickogi14gmail.ishanu.Views;
+package com.erickogi14gmail.ishanu.Views.Support;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -33,10 +33,39 @@ public class DbClass extends SQLiteOpenHelper {
             "  `paid` varchar NOT NULL," +
             "  `balance` varchar , " +
 
-            "  `date` varchar "
+            "  `date` varchar ," +
+
+            "  `customer` varchar, " +
+
+            "  `cash` varchar ," +
+            "  `mpesa` varchar ," +
+            "  `cheque` varchar "
 
 
             + ")";
+
+
+//
+//    private int record_id;
+//    private String products;
+//    private String product_total;
+//    private String retutns;
+//    private String returns_total;
+//
+//
+//
+//
+//    private String paid;
+//    private String balance;
+//
+//
+//    private String date;
+//
+//    private String customer_name;
+//
+//    private String cash;
+//    private String mpesa;
+//    private String cheque;
 
     public DbClass(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
