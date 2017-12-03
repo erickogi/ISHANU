@@ -136,7 +136,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Car "
+                            android:text="Truck "
                             android:textAlignment="center"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -180,7 +180,7 @@
                         android:id="@+id/spinner_serial"
 
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:layout_marginBottom="20dp"
 
                         android:entries="@array/serials"
@@ -191,15 +191,27 @@
                     <Spinner
                         android:id="@+id/spinner_customer"
                         android:layout_width="match_parent"
-
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
 
+                        android:layout_marginTop="12dp"
                         android:entries="@array/listarray_customers"
-                        android:padding="6dp">
+
+                        android:padding="6dp"
+                        android:visibility="gone">
 
 
                     </Spinner>
+
+                    <Button
+                        android:id="@+id/btn_select_customer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@color/accent"
+                        android:padding="4dp"
+                        android:text="Select Customer" />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"

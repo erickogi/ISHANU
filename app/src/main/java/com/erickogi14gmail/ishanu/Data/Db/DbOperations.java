@@ -5,9 +5,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.erickogi14gmail.ishanu.Data.Models.PaymentsModel;
 import com.erickogi14gmail.ishanu.Data.Models.ProductModel;
 import com.erickogi14gmail.ishanu.Data.Models.RecordModel;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.Collection;
 import java.util.LinkedList;
 
 /**
@@ -136,6 +141,16 @@ public class DbOperations {
                 pojo.setMpesa(cursor.getString(10));
                 pojo.setCheque(cursor.getString(11));
 
+
+                LinkedList<PaymentsModel> paymentsModels = new LinkedList<>();
+                Gson gson = new Gson();
+
+                Type collectionType1 = new TypeToken<Collection<PaymentsModel>>() {
+                }.getType();
+                Collection<PaymentsModel> enums = gson.fromJson(cursor.getString(12), collectionType1);
+                paymentsModels.addAll(enums);
+
+                pojo.setPaymentsModels(paymentsModels);
                 data.add(pojo);
 
             }
@@ -178,7 +193,9 @@ public class DbOperations {
         values.put("mpesa", data.getMpesa());
         values.put("cheque", data.getCheque());
 
-
+        Gson gson = new Gson();
+        String datat = gson.toJson(data.getPaymentsModels());
+        values.put("payments", datat);
         if (db.insert("ishano_records_data", null, values) >= 1) {
             success = true;
         }

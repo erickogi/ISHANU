@@ -38,6 +38,9 @@ public class PrefrenceManager {
 
     private static final String KEY_CUSTOMER_NAME = "customer";
 
+    private static final String KEY_SORTIE = "sortie";
+    private static final String KEY_SORTIE_POS = "sortieposition";
+
 
     // Shared Preferences
     SharedPreferences pref;
@@ -75,10 +78,36 @@ public class PrefrenceManager {
 
     }
 
+    public String getSortie() {
+        return pref.getString(KEY_SORTIE, "Select Sortie");
+    }
+
+    public int getSortiePos() {
+        return pref.getInt(KEY_SORTIE_POS, 0);
+    }
+
+    public void setSortie(String sortie, int pos) {
+        editor.putString(KEY_SORTIE, sortie);
+        editor.putInt(KEY_SORTIE_POS, pos);
+        editor.commit();
+    }
+
+    private void clearSortie() {
+
+    }
     public void clearCustomerName() {
 
         editor.putString(KEY_CUSTOMER_NAME, "null");
         editor.remove(KEY_CUSTOMER_NAME);
+
+
+        editor.putString(KEY_SORTIE_POS, "null");
+        editor.putString(KEY_SORTIE, "null");
+
+        editor.remove(KEY_SORTIE_POS);
+        editor.remove(KEY_SORTIE);
+
+
 
         editor.commit();
     }

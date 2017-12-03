@@ -32,6 +32,7 @@ import com.stepstone.stepper.VerificationError;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements StepperLayout.StepperListener {
+    boolean exit = false;
     private StepperLayout mStepperLayout;
     private MyStepperAdapter mStepperAdapter;
     private DbOperations dbOperations;
@@ -153,8 +154,10 @@ public class MainActivity extends AppCompatActivity implements StepperLayout.Ste
 
                     break;
                 case DialogInterface.BUTTON_NEGATIVE:
+                    prefrenceManager.clearCustomerName();
                     prefrenceManager.clearReturnsData();
                     prefrenceManager.clearSalesData();
+                    mStepperLayout.setCurrentStepPosition(0);
                     dialog.dismiss();
 
 
@@ -217,5 +220,49 @@ public class MainActivity extends AppCompatActivity implements StepperLayout.Ste
 
     }
 
+    @Override
+    public void onBackPressed() {
 
+        if (mStepperLayout.getCurrentStepPosition() != 0) {
+            mStepperLayout.setCurrentStepPosition(mStepperLayout.getCurrentStepPosition() - 1);
+        } else {
+            alertDialogFinish("Confirm Exit Action");
+        }
+        // super.onBackPressed();
+
+    }
+
+    private boolean alertDialogFinish(String message) {
+        final boolean[] toExit = {false};
+
+
+        final DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+
+
+                    toExit[0] = true;
+                    super.onBackPressed();
+                    //onBackPressed();
+                    //return;
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+
+                    //toExit[0]=false;
+                    dialog.dismiss();
+                    //onBackPressed();
+
+                    break;
+            }
+        };
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+        builder.setMessage(message).setPositiveButton("Confirm", dialogClickListener)
+                .setNegativeButton("Dismiss", dialogClickListener).show();
+
+
+        return toExit[0];
+    }
 }

@@ -81,19 +81,19 @@ public class MainActivityDrawer {
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(activity)
                 .withOnProfileClickDrawerCloseDelay(2)
-                .withTextColorRes(R.color.primary_dark)
+                .withTextColorRes(R.color.white)
 
-                //.withHeaderBackground(R.drawable.header)
+                .withHeaderBackground(R.drawable.headermain)
                 .addProfiles(
                         new ProfileDrawerItem().withName(details.get("name")).withEmail(details.get("email"))
-                                .withTextColor(ColorHolder.fromColorRes(R.color.colorPrimaryDark).getColorInt())
-                                .withTextColor(activity.getResources().getColor(R.color.primary_dark))
-                                .withSelectedTextColorRes(R.color.colorPrimaryDark)
+                                .withTextColor(ColorHolder.fromColorRes(R.color.white).getColorInt())
+                                .withTextColor(activity.getResources().getColor(R.color.white))
+                                .withSelectedTextColorRes(R.color.white)
                                 //.withSelectedTextColorRes(R.color.colorPrimaryDark)
-                                .withIcon(R.drawable.ishano_logo)
+                                .withIcon(R.drawable.passname)
 
 
-                                .withDisabledTextColor(activity.getResources().getColor(R.color.colorPrimaryDark))
+                                .withDisabledTextColor(activity.getResources().getColor(R.color.white))
 
 
                 )

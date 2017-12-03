@@ -39,7 +39,8 @@ public class DbClass extends SQLiteOpenHelper {
 
             "  `cash` varchar ," +
             "  `mpesa` varchar ," +
-            "  `cheque` varchar "
+            "  `cheque` varchar ," +
+            "  `payments` varchar "
 
 
             + ")";

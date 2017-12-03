@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.erickogi14gmail.ishanu.Data.Models.ProductModel;
 import com.erickogi14gmail.ishanu.R;
+import com.erickogi14gmail.ishanu.Utils.Commafy;
 
 import java.util.LinkedList;
 
@@ -40,7 +41,8 @@ public class SearchProductAdapter extends RecyclerView.Adapter<SearchProductAdap
 
         ProductModel productModel = modelList.get(position);
         holder.txtProductName.setText(productModel.getProduct_name());
-        holder.txtProductPrice.setText(String.valueOf(productModel.getProduct_price()) + " Ksh");
+        //holder.txtProductPrice.setText(String.valueOf(productModel.getProduct_price()) + " Ksh");
+        holder.txtProductPrice.setText(Commafy.addCommify(String.valueOf(productModel.getProduct_price())) + " Ksh");
         holder.txtProductQuantity.setText(String.valueOf(productModel.getProduct_load_quantity()));
         if (type == 2) {
 

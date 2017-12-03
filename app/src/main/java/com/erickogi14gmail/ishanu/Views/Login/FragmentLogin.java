@@ -23,6 +23,7 @@ public class FragmentLogin extends Fragment {
     private TextInputEditText edtEmail, edtPassword;
     private Button btnLogin;
 
+    private boolean debug = true;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,31 +48,51 @@ public class FragmentLogin extends Fragment {
         btnLogin = view.findViewById(R.id.btn_login);
 
         btnLogin.setOnClickListener(v -> {
-            if (isFilled(edtEmail) && isFilled(edtPassword)) {
+            if (debug) {
                 PrefrenceManager prefrenceManager = new PrefrenceManager(getContext());
-                String[] params = prefrenceManager.getLoginParams();
-                if (edtPassword.getText().toString().contentEquals("123456")) {
-                    if (edtEmail.getText().toString().contentEquals("eric@zalego.com") || edtEmail.getText().toString().contentEquals("072345678")) {
-                        prefrenceManager.setIsLoggedIn(true);
 
-                        MyAccountModel myAccountModel = new MyAccountModel();
-                        myAccountModel.setName("Eric ");
-                        myAccountModel.setEmail("eric@zalego.com");
-                        myAccountModel.setMobilr("072345678");
-                        myAccountModel.setPassword("23456");
-                        myAccountModel.setCar("KBG 423 Y");
-                        myAccountModel.setRoute("Waiyaki Way");
-                        // PrefrenceManager prefrenceManager = new PrefrenceManager(getContext());
-                        prefrenceManager.createLogin(myAccountModel);
+                prefrenceManager.setIsLoggedIn(true);
+
+                MyAccountModel myAccountModel = new MyAccountModel();
+                myAccountModel.setName("Eric ");
+                myAccountModel.setEmail("eric@zalego.com");
+                myAccountModel.setMobilr("072345678");
+                myAccountModel.setPassword("23456");
+                myAccountModel.setCar("KBG 423 Y");
+                myAccountModel.setRoute("Waiyaki Way");
+                // PrefrenceManager prefrenceManager = new PrefrenceManager(getContext());
+                prefrenceManager.createLogin(myAccountModel);
 
 
-                        getActivity().finish();
-                        startActivity(new Intent(getActivity(), MainActivity.class));
+                getActivity().finish();
+                startActivity(new Intent(getActivity(), MainActivity.class));
+            } else {
+                if (isFilled(edtEmail) && isFilled(edtPassword)) {
+                    PrefrenceManager prefrenceManager = new PrefrenceManager(getContext());
+                    String[] params = prefrenceManager.getLoginParams();
+                    if (edtPassword.getText().toString().contentEquals("123456")) {
+                        if (edtEmail.getText().toString().contentEquals("eric@zalego.com") || edtEmail.getText().toString().contentEquals("072345678")) {
+                            prefrenceManager.setIsLoggedIn(true);
+
+                            MyAccountModel myAccountModel = new MyAccountModel();
+                            myAccountModel.setName("Eric ");
+                            myAccountModel.setEmail("eric@zalego.com");
+                            myAccountModel.setMobilr("072345678");
+                            myAccountModel.setPassword("23456");
+                            myAccountModel.setCar("KBG 423 Y");
+                            myAccountModel.setRoute("Waiyaki Way");
+                            // PrefrenceManager prefrenceManager = new PrefrenceManager(getContext());
+                            prefrenceManager.createLogin(myAccountModel);
+
+
+                            getActivity().finish();
+                            startActivity(new Intent(getActivity(), MainActivity.class));
+                        } else {
+                            edtEmail.setError("Invalid");
+                        }
                     } else {
-                        edtEmail.setError("Invalid");
+                        edtPassword.setError("Wrong password");
                     }
-                } else {
-                    edtPassword.setError("Wrong password");
                 }
             }
         });

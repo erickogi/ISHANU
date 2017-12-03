@@ -5,13 +5,17 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.erickogi14gmail.ishanu.Data.Db.PrefrenceManager;
+import com.erickogi14gmail.ishanu.Data.Models.CustomerModel;
+import com.erickogi14gmail.ishanu.Data.Models.DataGen;
 import com.erickogi14gmail.ishanu.Data.Models.MyAccountModel;
 import com.erickogi14gmail.ishanu.R;
 import com.erickogi14gmail.ishanu.Utils.Toast;
@@ -22,17 +26,19 @@ import com.stepstone.stepper.VerificationError;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 
 /**
  * Created by Eric on 11/21/2017.
  */
 
-public class FragmentOne extends Fragment implements BlockingStep {
+public class FragmentOne extends Fragment implements BlockingStep, DialogSearchCustomer.DialogSearchListener {
     PrefrenceManager prefrenceManager;
     private TextView myName, myRoute, myCar, date;
     private Spinner spinerCustomer, spinnerSerial;
 
     private TextView lmyName, lmyDate, lmyRoute, lmyCar;
+    private Button btnSelectCustomer;
 
 
     @Nullable
@@ -42,6 +48,17 @@ public class FragmentOne extends Fragment implements BlockingStep {
     }
 
 
+    public void initUI() {
+        String customersName = prefrenceManager.getCustomer();
+        if (customersName.equals("Customers Name")) {
+            btnSelectCustomer.setText("Select Customer");
+            spinnerSerial.setSelection(0);
+
+        } else {
+            spinnerSerial.setSelection(prefrenceManager.getSortiePos());
+            btnSelectCustomer.setText(customersName);
+        }
+    }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -50,6 +67,13 @@ public class FragmentOne extends Fragment implements BlockingStep {
         myCar = view.findViewById(R.id.txt_my_car);
         myRoute = view.findViewById(R.id.txt_my_route);
         date = view.findViewById(R.id.txt_date);
+        btnSelectCustomer = view.findViewById(R.id.btn_select_customer);
+        btnSelectCustomer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogSelectCustomer(DataGen.genData());
+            }
+        });
 
         spinerCustomer = view.findViewById(R.id.spinner_customer);
         spinnerSerial = view.findViewById(R.id.spinner_serial);
@@ -85,6 +109,18 @@ public class FragmentOne extends Fragment implements BlockingStep {
             nm.printStackTrace();
         }
 
+        initUI();
+    }
+
+    private void dialogSelectCustomer(LinkedList<CustomerModel> customerModels) {
+        FragmentManager fm = getFragmentManager();
+        DialogSearchCustomer dialogSearch = DialogSearchCustomer.newInstance("Customer", 1, customerModels);
+        // dialogSearch.show(fm,"dialog");
+
+        dialogSearch.setTargetFragment(FragmentOne.this, 300);
+        dialogSearch.show(fm, "fragment_search");
+
+
     }
 
     @Override
@@ -95,11 +131,13 @@ public class FragmentOne extends Fragment implements BlockingStep {
             @Override
             public void run() {
 
-                if (spinerCustomer.getSelectedItem().toString().equals("Select Customer") || spinnerSerial.getSelectedItem().toString().equals("Select Sortie")) {
+                if (btnSelectCustomer.getText().toString().toLowerCase().equals("select customer") || spinnerSerial.getSelectedItem().toString().equals("Select Sortie")) {
                     Toast.toast("Select Customer and Serial", getContext(), R.drawable.ic_error_outline_black_24dp);
                     callback.getStepperLayout().hideProgress();
                 } else {
-                    prefrenceManager.setCustomersName(spinerCustomer.getSelectedItem().toString());
+                    prefrenceManager.setCustomersName(btnSelectCustomer.getText().toString());
+                    prefrenceManager.setSortie(spinnerSerial.getSelectedItem().toString(),
+                            spinnerSerial.getSelectedItemPosition());
                     //you can do anythings you want
                     callback.goToNextStep();
                     callback.getStepperLayout().hideProgress();
@@ -134,11 +172,17 @@ public class FragmentOne extends Fragment implements BlockingStep {
 
     @Override
     public void onSelected() {
-
+        initUI();
     }
 
     @Override
     public void onError(@NonNull VerificationError error) {
 
+    }
+
+    @Override
+    public void onSelected(CustomerModel model) {
+
+        btnSelectCustomer.setText(model.getCustomer_name());
     }
 }

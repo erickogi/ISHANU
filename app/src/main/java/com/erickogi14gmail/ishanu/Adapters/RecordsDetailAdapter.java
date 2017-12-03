@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.erickogi14gmail.ishanu.Data.Models.ProductModel;
 import com.erickogi14gmail.ishanu.R;
+import com.erickogi14gmail.ishanu.Utils.Commafy;
 
 import java.util.LinkedList;
 
@@ -39,8 +40,8 @@ public class RecordsDetailAdapter extends RecyclerView.Adapter<RecordsDetailAdap
         ProductModel productModel = modelList.get(position);
         holder.txtItemName.setText(productModel.getProduct_name() + " * " + productModel.getProduct_sale_quantity());
         double Qty = Double.valueOf(productModel.getProduct_sale_quantity()) * Double.valueOf(productModel.getProduct_price());
-        holder.txtItemTotalPrice.setText("" + String.valueOf(Qty) + " Ksh");
-        holder.txtItemPrice.setText("@ : " + productModel.getProduct_price() + "  Ksh");
+        holder.txtItemTotalPrice.setText("" + Commafy.addCommify(String.valueOf(Qty)) + " Ksh");
+        holder.txtItemPrice.setText("@ : " + Commafy.addCommify(String.valueOf(productModel.getProduct_price())) + "  Ksh");
     }
 
     @Override

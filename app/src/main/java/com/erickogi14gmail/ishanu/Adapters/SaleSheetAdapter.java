@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.erickogi14gmail.ishanu.Data.Models.ProductModel;
 import com.erickogi14gmail.ishanu.Interfaces.SaleSheetListner;
 import com.erickogi14gmail.ishanu.R;
+import com.erickogi14gmail.ishanu.Utils.Commafy;
 
 import java.lang.ref.WeakReference;
 import java.util.LinkedList;
@@ -49,9 +50,11 @@ public class SaleSheetAdapter extends RecyclerView.Adapter<SaleSheetAdapter.MyVi
         } catch (Exception nm) {
 
         }
-        holder.txtItemTotalPrice.setText("" + String.valueOf(Qty) + " Ksh");
+        //  holder.txtItemTotalPrice.setText("" + String.valueOf(Qty) + " Ksh");
+        holder.txtItemTotalPrice.setText("" + Commafy.addCommify(String.valueOf(Qty)) + " Ksh");
 
-        holder.txtItemPrice.setText("@ : " + productModel.getProduct_price() + "  Ksh");
+        //  holder.txtItemPrice.setText("@ : " + productModel.getProduct_price() + "  Ksh");
+        holder.txtItemPrice.setText("@ : " + Commafy.addCommify(String.valueOf(productModel.getProduct_price())) + " Ksh");
     }
 
     public void updateList(LinkedList<ProductModel> list) {

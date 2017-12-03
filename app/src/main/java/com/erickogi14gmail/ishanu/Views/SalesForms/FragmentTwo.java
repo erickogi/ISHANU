@@ -31,6 +31,7 @@ import com.erickogi14gmail.ishanu.Data.Db.PrefrenceManager;
 import com.erickogi14gmail.ishanu.Data.Models.ProductModel;
 import com.erickogi14gmail.ishanu.Interfaces.SaleSheetListner;
 import com.erickogi14gmail.ishanu.R;
+import com.erickogi14gmail.ishanu.Utils.Commafy;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.stepstone.stepper.BlockingStep;
@@ -55,6 +56,8 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
     private SaleSheetAdapter saleSheetAdapter;
     private TextView txtTotalPrice, txtTotalQuantity;
     private PrefrenceManager prefrenceManager;
+
+    private Double totalPrice, totalQuantity;
 
     @Nullable
     @Override
@@ -174,9 +177,20 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
     }
 
     private void setTotals() {
-        if (saleSheetAdapter.getItemCount() > 1) {
+        if (saleSheetAdapter.getItemCount() >= 1) {
+
+            totalPrice = calculateTotalPrice();
+            totalQuantity = calculateTotalQuantity();
+
             txtTotalQuantity.setText(String.valueOf(calculateTotalQuantity()));
-            txtTotalPrice.setText(String.valueOf(calculateTotalPrice()));
+            //  txtTotalPrice.setText(String.valueOf(calculateTotalPrice()));
+
+            Log.d("calculateprice", "" + calculateTotalPrice());
+            txtTotalPrice.setText(Commafy.addCommify(String.valueOf(calculateTotalPrice())));
+
+
+
+
         } else {
             txtTotalQuantity.setText(String.valueOf(0.0));
             txtTotalPrice.setText(String.valueOf(0.0));
@@ -192,13 +206,18 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
 
         new Handler().postDelayed(() -> {
 
-            if (Double.valueOf(txtTotalPrice.getText().toString()) > 0.0) {
+            if (//Double.valueOf(txtTotalPrice.getText().toString()) > 0.0
+                    Double.valueOf(Commafy.removeCommify(txtTotalPrice.getText().toString())) > 0.0) {
                 Gson gson = new Gson();
                 String data = gson.toJson(productModels);
                 if (type == 1) {
-                    prefrenceManager.storeSales(data, txtTotalPrice.getText().toString());
+                    // prefrenceManager.storeSales(data, txtTotalPrice.getText().toString());
+                    /// prefrenceManager.storeSales(data,String.valueOf(totalPrice));
+                    prefrenceManager.storeSales(data, Commafy.removeCommify(txtTotalPrice.getText().toString()));
                 } else {
-                    prefrenceManager.storeReturns(data, txtTotalPrice.getText().toString());
+                    //prefrenceManager.storeReturns(data, txtTotalPrice.getText().toString());
+                    prefrenceManager.storeReturns(data, Commafy.removeCommify(txtTotalPrice.getText().toString()));
+                    // prefrenceManager.storeReturns(data, String.valueOf(totalPrice));
                 }
             }
 
@@ -219,13 +238,18 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
     public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
         new Handler().postDelayed(() -> {
             type = getArguments().getInt("type");
-            if (Double.valueOf(txtTotalPrice.getText().toString()) > 0.0) {
+            if (//Double.valueOf(txtTotalPrice.getText().toString()) > 0.0
+                    Double.valueOf(Commafy.removeCommify(txtTotalPrice.getText().toString())) > 0.0) {
                 Gson gson = new Gson();
                 String data = gson.toJson(productModels);
                 if (type == 1) {
-                    prefrenceManager.storeSales(data, txtTotalPrice.getText().toString());
+                    prefrenceManager.storeSales(data, Commafy.removeCommify(txtTotalPrice.getText().toString()));
+
+                    // prefrenceManager.storeSales(data, txtTotalPrice.getText().toString());
                 } else {
-                    prefrenceManager.storeReturns(data, txtTotalPrice.getText().toString());
+                    prefrenceManager.storeReturns(data, Commafy.removeCommify(txtTotalPrice.getText().toString()));
+
+                    //prefrenceManager.storeReturns(data, txtTotalPrice.getText().toString());
                 }
             }
 
@@ -289,8 +313,10 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
 
         edtQ.setText(String.valueOf(initialQuantity));
         prouctName.setText(model.getProduct_name());
-        productPrice.setText(String.valueOf(model.getProduct_price()) + " Ksh");
-
+        //productPrice.setText(String.valueOf(model.getProduct_price()) + " Ksh");
+        productPrice.setText(Commafy.addCommify(String.valueOf(model.getProduct_price())) + " Ksh");
+        //EditText et = (EditText)findViewById(R.id.inbox);
+        edtQ.setSelection(edtQ.getText().length());
 
         edtQ.addTextChangedListener(new TextWatcher() {
 
@@ -310,7 +336,9 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
                 try {
                     if (Double.valueOf(s.toString()) > 0.0) {
                         double newPrice = Double.valueOf(s.toString()) * model.getProduct_price();
-                        productPrice.setText(String.valueOf(newPrice));
+
+                        productPrice.setText(Commafy.addCommify(String.valueOf(newPrice)));
+                        // productPrice.setText(String.valueOf(newPrice));
                     } else {
                         //edtQ.setError("Invalid Value");
                         edtQ.setText(String.valueOf(initialQuantity));
@@ -324,32 +352,57 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
         });
 
         btnP.setOnClickListener(v -> {
-            Double quantityNow = Double.valueOf(edtQ.getText().toString());
-            edtQ.setText(String.valueOf(quantityNow + 1));
+            try {
+                Double quantityNow = Double.valueOf(edtQ.getText().toString());
+                edtQ.setText(String.valueOf(quantityNow + 1));
+                edtQ.setSelection(edtQ.getText().length());
+            } catch (Exception nm) {
+                Double quantityNow = 0.0;
+                edtQ.setText(String.valueOf(quantityNow + 1));
+                edtQ.setSelection(edtQ.getText().length());
+            }
+
 
         });
 
 
         btnM.setOnClickListener(v -> {
-            Double quantityNow = Double.valueOf(edtQ.getText().toString());
-            if (quantityNow > 1) edtQ.setText(String.valueOf(quantityNow - 1));
+            try {
+                Double quantityNow = Double.valueOf(edtQ.getText().toString());
+                if (quantityNow > 1) {
+                    edtQ.setText(String.valueOf(quantityNow - 1));
+                    edtQ.setSelection(edtQ.getText().length());
+                }
+            } catch (Exception nm) {
+                edtQ.setError("Invalid");
+                Double quantityNow = 0.0;
+                if (quantityNow > 1) {
+                    edtQ.setText(String.valueOf(quantityNow - 1));
+                    edtQ.setSelection(edtQ.getText().length());
+                }
+            }
         });
 
         btnD.setOnClickListener(v -> dialog.dismiss());
 
 
         btnU.setOnClickListener(v -> {
-            ProductModel productModel = new ProductModel();
-            productModel.setProduct_name(model.getProduct_name());
-            productModel.setProduct_price(model.getProduct_price());
-            productModel.setProduct_sale_quantity(Double.valueOf(edtQ.getText().toString()));
-            productModel.setProduct_load_quantity(model.getProduct_load_quantity());
-            if (requestCode == 1) {
-                populateList(productModel);
-            } else {
-                updateItem(productModel, pos);
+            try {
+                ProductModel productModel = new ProductModel();
+                productModel.setProduct_name(model.getProduct_name());
+                productModel.setProduct_price(model.getProduct_price());
+                productModel.setProduct_sale_quantity(Double.valueOf(edtQ.getText().toString()));
+                productModel.setProduct_load_quantity(model.getProduct_load_quantity());
+                if (requestCode == 1) {
+                    populateList(productModel);
+                } else {
+                    updateItem(productModel, pos);
+                }
+                dialog.dismiss();
+            } catch (Exception nm) {
+                edtQ.setError("Not valid");
             }
-            dialog.dismiss();
+
         });
 
 
@@ -379,7 +432,11 @@ public class FragmentTwo extends Fragment implements BlockingStep, DialogSearch.
     private void setTotals1() {
         try {
             txtTotalQuantity.setText(String.valueOf(calculateTotalQuantity()));
-            txtTotalPrice.setText(String.valueOf(calculateTotalPrice()));
+            // txtTotalPrice.setText(String.valueOf(calculateTotalPrice()));
+
+            txtTotalPrice.setText(Commafy.addCommify(String.valueOf(calculateTotalPrice())));
+
+
         } catch (Exception nm) {
             nm.printStackTrace();
         }

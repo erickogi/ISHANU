@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.erickogi14gmail.ishanu.Data.Models.RecordModel;
 import com.erickogi14gmail.ishanu.R;
+import com.erickogi14gmail.ishanu.Utils.Commafy;
 
 import java.util.LinkedList;
 
@@ -38,11 +39,11 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.MyViewHo
     public void onBindViewHolder(MyViewHolder holder, int position) {
         RecordModel recordModel = modelList.get(position);
         holder.textViewId.setText("Tr.No : " + String.valueOf(recordModel.getRecord_id()));
-        holder.textViewPaid.setText("Paid :" + recordModel.getPaid() + "  Ksh");
+        holder.textViewPaid.setText("Paid :" + Commafy.addCommify(recordModel.getPaid()) + "  Ksh");
         // holder.textViewDate.setText(recordModel.getTransaction_date());
         holder.textViewDate.setText(recordModel.getDate());
-        holder.textViewPrice.setText("Due  " + String.valueOf(Double.valueOf(recordModel.getProduct_total())
-                - Double.valueOf(recordModel.getReturns_total())) + " Ksh");
+        holder.textViewPrice.setText("Due  " + Commafy.addCommify(String.valueOf(Double.valueOf(recordModel.getProduct_total())
+                - Double.valueOf(recordModel.getReturns_total()))) + " Ksh");
 
     }
 

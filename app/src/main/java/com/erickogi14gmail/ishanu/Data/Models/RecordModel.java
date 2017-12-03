@@ -1,6 +1,7 @@
 package com.erickogi14gmail.ishanu.Data.Models;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 
 /**
  * Created by Eric on 11/23/2017.
@@ -25,6 +26,16 @@ public class RecordModel implements Serializable {
     private String cash;
     private String mpesa;
     private String cheque;
+
+    private LinkedList<PaymentsModel> paymentsModels;
+
+    public LinkedList<PaymentsModel> getPaymentsModels() {
+        return paymentsModels;
+    }
+
+    public void setPaymentsModels(LinkedList<PaymentsModel> paymentsModels) {
+        this.paymentsModels = paymentsModels;
+    }
 
     public String getCash() {
         return cash;

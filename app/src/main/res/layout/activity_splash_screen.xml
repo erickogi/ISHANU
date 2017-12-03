@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary"
+
+
     tools:context="com.erickogi14gmail.ishanu.Views.Login.SplashScreenActivity">
 
 
@@ -20,19 +21,21 @@
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content" />-->
         <ImageView
+
             android:id="@+id/img_logol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:padding="16dp"
-            android:src="@drawable/delivery_big" />
+            android:src="@drawable/passname" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ISHAN0 DISTRIBUTERS"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+        <!--<TextView-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="PAS Mobile"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textStyle="bold" />-->
 
 
     </LinearLayout>

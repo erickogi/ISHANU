@@ -14,6 +14,7 @@ public class ProductModel implements Serializable {
     private double product_sale_quantity;
     private double product_price;
 
+
     public String getProduct_id() {
         return product_id;
     }

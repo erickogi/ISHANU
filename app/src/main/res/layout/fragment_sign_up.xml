@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/headermain">
 
 
     <RelativeLayout
@@ -195,12 +196,12 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/rounded_border_accent"
+                android:background="@drawable/rounded_button_blue"
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="Register"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/white" />
 
 
         </LinearLayout>
