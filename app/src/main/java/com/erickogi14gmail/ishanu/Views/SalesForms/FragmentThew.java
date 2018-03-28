@@ -16,6 +16,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,7 +73,7 @@ public class FragmentThew extends Fragment implements BlockingStep, TextWatcher 
 
     private TextInputEditText edt_comments;
 
-
+    private ImageView inspectSales, inspectRetruns;
     //Payments
     private RecyclerView recyclerView;
 
@@ -184,7 +185,23 @@ public class FragmentThew extends Fragment implements BlockingStep, TextWatcher 
             }
         });
 
+        inspectRetruns = view.findViewById(R.id.inspect_returns);
+        inspectSales = view.findViewById(R.id.inspect_sales);
 
+        inspectSales.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StepperLayout stepperLayout = getActivity().findViewById(R.id.stepperLayout);
+                stepperLayout.setCurrentStepPosition(1);
+            }
+        });
+        inspectRetruns.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StepperLayout stepperLayout = getActivity().findViewById(R.id.stepperLayout);
+                stepperLayout.setCurrentStepPosition(2);
+            }
+        });
         initExternalClass();
 
 

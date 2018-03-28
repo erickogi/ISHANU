@@ -88,9 +88,9 @@ public class MainActivityDrawer {
                         new ProfileDrawerItem().withName(details.get("name")).withEmail(details.get("email"))
                                 .withTextColor(ColorHolder.fromColorRes(R.color.white).getColorInt())
                                 .withTextColor(activity.getResources().getColor(R.color.white))
-                                .withSelectedTextColorRes(R.color.white)
+                                .withSelectedTextColorRes(R.color.black)
                                 //.withSelectedTextColorRes(R.color.colorPrimaryDark)
-                                .withIcon(R.drawable.passname)
+                                .withIcon(R.drawable.ic_person_black_24dp)
 
 
                                 .withDisabledTextColor(activity.getResources().getColor(R.color.white))

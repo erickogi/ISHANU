@@ -158,4 +158,6 @@ public class DialogSearch extends android.support.v4.app.DialogFragment {
     public interface DialogSearchListener {
         void onSelected(ProductModel model);
     }
+
+
 }

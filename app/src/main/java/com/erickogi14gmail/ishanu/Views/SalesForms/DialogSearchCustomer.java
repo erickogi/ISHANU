@@ -71,7 +71,7 @@ public class DialogSearchCustomer extends android.support.v4.app.DialogFragment 
         Rect displayRectangle = new Rect();
         Window window = getActivity().getWindow();
         window.getDecorView().getWindowVisibleDisplayFrame(displayRectangle);
-        View view = inflater.inflate(R.layout.dialog_search_item, container);
+        View view = inflater.inflate(R.layout.dialog_search_item_2, container);
         view.setMinimumWidth((int) (displayRectangle.width() * 0.8f));
         view.setMinimumHeight((int) (displayRectangle.height() * 0.8f));
         return view;

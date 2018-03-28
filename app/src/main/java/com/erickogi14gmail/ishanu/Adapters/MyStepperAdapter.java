@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 
 import com.erickogi14gmail.ishanu.Views.SalesForms.FragmentOne;
-import com.erickogi14gmail.ishanu.Views.SalesForms.FragmentPayItem;
 import com.erickogi14gmail.ishanu.Views.SalesForms.FragmentThew;
 import com.erickogi14gmail.ishanu.Views.SalesForms.FragmentTwo;
 import com.stepstone.stepper.Step;
@@ -49,14 +48,14 @@ public class MyStepperAdapter extends AbstractFragmentStepAdapter {
                 b3.putInt("type", 2);
                 step3.setArguments(b3);
                 return step3;
+//            case 3:
+//                final FragmentPayItem step4 = new FragmentPayItem();
+//                Bundle b4 = new Bundle();
+//                b4.putInt(CURRENT_STEP_POSITION_KEY, position);
+//                //b4.putInt("type",2);
+//                step4.setArguments(b4);
+//                return step4;
             case 3:
-                final FragmentPayItem step4 = new FragmentPayItem();
-                Bundle b4 = new Bundle();
-                b4.putInt(CURRENT_STEP_POSITION_KEY, position);
-                //b4.putInt("type",2);
-                step4.setArguments(b4);
-                return step4;
-            case 4:
                 final FragmentThew step5 = new FragmentThew();
                 Bundle b5 = new Bundle();
                 b5.putInt(CURRENT_STEP_POSITION_KEY, position);
@@ -71,7 +70,7 @@ public class MyStepperAdapter extends AbstractFragmentStepAdapter {
 
     @Override
     public int getCount() {
-        return 5;
+        return 4;
     }
 
     @NonNull
@@ -92,11 +91,11 @@ public class MyStepperAdapter extends AbstractFragmentStepAdapter {
                 return new StepViewModel.Builder(context)
                         .setTitle("Returns") //can be a CharSequence instead
                         .create();
+//            case 3:
+//                return new StepViewModel.Builder(context)
+//                        .setTitle("Pay") //can be a CharSequence instead
+//                        .create();
             case 3:
-                return new StepViewModel.Builder(context)
-                        .setTitle("Pay") //can be a CharSequence instead
-                        .create();
-            case 4:
                 return new StepViewModel.Builder(context)
                         .setTitle("Finish") //can be a CharSequence instead
                         .create();
